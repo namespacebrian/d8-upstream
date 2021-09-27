@@ -1,0 +1,181 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Paragraphs
+// --------------------------------------------------
+
+//## Background Colors for Paragraph Sections.
+
+.red-bg {
+  background-color: $brand-red;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+}
+
+.gray-bg {
+  background-color: $brand-lgray;
+}
+
+.black-bg {
+  background-color: $black-base;
+  color: $white;
+
+  a, .field--name-field-callout-link a {
+    color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+}
+
+.purple-bg {
+  background-color: $purple-base;
+  color: $white;
+
+  a, .field--name-field-callout-link a {
+    color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+}
+
+.lblue-bg {
+  background-color: $lblue-base;
+}
+
+.cream-bg {
+  background-color: $cream-base;
+}
+
+// --------------------------------------------------
+
+//## Column Styles.
+
+.paragraph--type--columns-1 {
+  width: $full - 10;
+  margin: $center-margin;
+  margin-top: 30px;
+
+}
+
+.paragraph--type--columns-2 {
+  margin-top: 30px;
+
+}
+
+.paragraph--type--columns-3 {
+  margin-top: 30px;
+
+}
+
+.paragraph__column {
+  width: $full;
+  float: left;
+  padding: 0 0 15px 0;
+}
+
+// --------------------------------------------------
+
+//## Accordion.
+
+.paragraph--type--accordion {
+
+  .field {
+    padding: 20px;
+
+    p {
+        margin: 0 0 11px;
+    }
+  }
+
+  .panel-default {
+    border: none;
+  }
+
+  .panel-heading {
+    border: none;
+  }
+
+  .card-header {
+    margin: 0 0 10px;
+    background: #f5f5f5;
+
+    .panel-title {
+      color: #b00;
+      padding: 3px 15px;
+      border-color: transparent;
+      border-style: none;
+      border-width: 0;
+      background-color: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    svg {
+      float: right;
+      margin-top: 5px;
+      color: #787878;
+    }
+  }
+}
+
+.paragraph--type--accordion .panel div:nth-last-child(2) {
+  margin-bottom: 0;
+}
+
+// --------------------------------------------------
+
+//## Tabs.
+
+.paragraph--type--tabs .field {
+  padding: 20px;
+}
+
+
+// --------------------------------------------------
+
+//## Video.
+
+.paragraph--type--video iframe {
+  width: 100%;
+  min-height: 315px;
+
+  @media (max-width: 500px) {
+    min-height: 215px;
+  }
+}
+
+
+// ---------------------------------------------------
+
+//## Special
+
+.paragraph--type--tagline {
+  margin: 20px 0;
+  float: left;
+}
+
+

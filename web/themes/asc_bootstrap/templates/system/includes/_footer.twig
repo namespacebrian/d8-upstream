@@ -1,0 +1,74 @@
+ <footer class="footer {{ container }}" role="contentinfo">
+  <div class="container">
+    <div id="footer1-container" class="col-xs-12 col-md-4">
+      {% if page.footer_one %}
+        {% block footer_one %}
+
+            {{ page.footer_one }}
+
+        {% endblock %}
+      {% endif %}
+    </div>
+    <div id="footer2-container" class="col-xs-12 col-md-4">
+      {% if page.footer_two %}
+        {% block footer_two %}
+
+            {{ page.footer_two }}
+
+        {% endblock %}
+      {% endif %}
+    </div>
+    <div id="footer3-container" class="col-xs-12 col-md-4">
+      {% if page.footer_three %}
+        {% block footer_three %}
+
+            {{ page.footer_three }}
+
+        {% endblock %}
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+<div id="subfoot">
+  <div class="container">
+    <div class="col-xs-12 col-md-6 sf-col1">
+      <a href="https://osu.edu/">
+        <img src="/themes/asc_bootstrap/images/osu-web-footer-wordmark-rev.png" alt="The Ohio State University logo" />
+      </a>
+    </div>
+
+    <div class="col-xs-12 col-md-6 sf-col2">
+      <ul>
+        <li id="access-area">
+          If you have a disability and experience difficulty accessing this site, please contact us for assistance via email at <a href="mailto:asc-accessibility@osu.edu" class="email-link" title="Email for accessibility assistance">asc-accessibility@osu.edu</a>.
+        </li>
+        <li>
+          <a href="https://go.osu.edu/privacy">
+            Privacy Statement
+          </a>
+        </li>
+        <li>
+          {% if logged_in %}
+            <a href="/user/logout">
+              LOGOUT: {{ user.displayname }}
+            </a>
+          {% else %}
+            <a href="/saml_login">
+              LOGIN
+            </a>
+        {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="col-xs-12 col-md-6 sf-col1">
+      <p><small>&copy; {{ "now"|date("Y") }}. The Ohio State University</small></p>
+    </div>
+
+    <div class="col-xs-12 col-md-6 sf-col2">
+      <p><small><i>Designed and built by <a href="https://asctech.osu.edu/services/web-services" class="email-link">ASCTech Web Services</a></i></small></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+/* Hides unneeded descriptive text */
+#edit-book-plid-wrapper em {
+  display: none;
+}
+
+#edit-book-plid-wrapper .description {
+  display: none;
+}

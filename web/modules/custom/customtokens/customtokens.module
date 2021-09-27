@@ -1,0 +1,55 @@
+<?php
+/**
+* Implements hook_token_info().
+*/
+function customtokens_token_info() {
+   $type = [
+       'name' => t('Custom Token'),
+       'description' => t('Tokens for custom things.'),
+   ];
+   $node['landingct'] = [
+       'name' => t("Research Landing Page"),
+       'description' => t('The node\'s Research Landing Page'),
+   ];
+   $node['landinggallct'] = [
+       'name' => t("Research Gallery Landing Page"),
+       'description' => t('The node\'s Research Gallery Landing Page'),
+   ];
+   return [
+       'types' => ['customtoken' => $type],
+       'tokens' => ['customtoken' => $node],
+   ];
+}
+/**
+* Implements hook_tokens().
+*/
+function customtokens_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+    $replacements = [];
+
+    //research ct
+    $nids = \Drupal::entityQuery('node')->condition('type','research_landing_page')->execute();
+    $lid = array_shift($nids);
+    $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$lid);
+
+    //research gallery ct
+    $nids2 = \Drupal::entityQuery('node')->condition('type','research_gallery_landing_page')->execute();
+    $lid2 = array_shift($nids2);
+    $alias2 = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$lid2);
+
+
+    if ($type == 'customtoken' && !empty($data['node'])) {
+      foreach ($tokens as $name => $original) {
+        switch ($name) {
+          case 'landingct':
+            $replacements[$original] = $alias;
+            break;
+
+          case 'landinggallct':
+            $replacements[$original] = $alias2;
+            break;
+        }
+      }
+
+    }
+   return $replacements;
+}

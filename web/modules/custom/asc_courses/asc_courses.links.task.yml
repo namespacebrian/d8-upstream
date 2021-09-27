@@ -1,0 +1,20 @@
+asc_courses.settings:
+  title: 'Course Selection'
+  description: 'Select courses by D-org number and/or specific courses by ID'
+  route_name: asc_courses.settings
+  base_route: asc_courses.settings
+
+asc_courses.search:
+  title: 'Course Search'
+
+  # I don't know where this is surfaced in the admin UI
+  description: 'links.task desc - Find courses and identify their IDs'
+
+  route_name: asc_courses.search
+  base_route: asc_courses.settings
+
+asc_courses.api_settings:
+  title: 'API Settings'
+  description: 'links.task desc - Configure ASC Courses API backend'
+  route_name: asc_courses.api_settings
+  base_route: asc_courses.settings

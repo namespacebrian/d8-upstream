@@ -1,0 +1,6 @@
+access files overview:
+  title: 'Access the Files overview page'
+
+delete any files:
+  title: 'Delete any files'
+  restrict access: true

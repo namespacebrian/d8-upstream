@@ -1,0 +1,63 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Front Page
+// --------------------------------------------------
+
+//## Menu Cards.
+
+.menu-card-container {
+  display: flex;
+  padding: 15px 30px 15px 0;
+}
+
+.menu-card {
+  background: $brand-lgray;
+  flex: 1;
+  min-height: 385px;
+  position: relative;
+
+  h2 {
+    background: $gray-menu-card;
+    padding: 10px 15px;
+    margin: 0 !important;
+    font-size: 18px;
+    color: $gray-6;
+  }
+
+  .navbar-nav > li {
+    float: none;
+  }
+
+  .navbar-nav > li > a {
+    padding: 7px 15px;
+    color: $brand-gray;
+
+    &:hover, &:focus {
+      text-decoration: underline !important;
+    }
+  }
+
+  .more-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px 10px;
+    background: $gray-menu-card;
+
+    a {
+      color: $gray-6;
+
+      &:hover {
+        color: $gray-6;
+        text-decoration: underline;
+      }
+    }
+
+    i {
+      color: $gray-6;
+    }
+  }
+
+}

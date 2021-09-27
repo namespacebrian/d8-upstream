@@ -1,0 +1,16 @@
+buckeye_alert:
+  version: 1.x
+  css:
+    theme:
+      css/buckeye-alert.css: {}
+  js:
+    js/buckeye-alert.js: {}
+    js/jquery.buckeye-alert.min.js: {}
+    js/jquery.d8-buckeye-alert.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax
+
+

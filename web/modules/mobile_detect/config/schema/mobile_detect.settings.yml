@@ -1,0 +1,7 @@
+mobile_detect.settings:
+  type: config_object
+  label: 'Mobile Detect Settings'
+  mapping:
+    add_cache_context:
+       type: boolean
+       label: 'Add cache context'

@@ -1,0 +1,8 @@
+condition.plugin.mobile_device_detection_condition_plugin:
+  type: condition.plugin
+  label: 'Show it on special devices'
+  mapping:
+    devices:
+      type: sequence
+      sequence:
+        type: string

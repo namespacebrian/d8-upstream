@@ -1,0 +1,5 @@
+mathjax.settings:
+  title: MathJax
+  description: 'Configure global settings for MathJax.'
+  parent: system.admin_config_content
+  route_name: mathjax.settings

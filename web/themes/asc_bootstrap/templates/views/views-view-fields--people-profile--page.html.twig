@@ -1,0 +1,12 @@
+<div class="panel-heading" role="tab" id="heading-{{ row.index }}">
+    <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ row.index }}" aria-controls="collapse-{{ row.index }}" aria-expanded="true">
+            {{ fields.users.appointments.content }}
+        </a>
+    </h4>
+</div>
+<div id="collapse-{{ row.index }}" aria-labelledby="heading-{{ row.index }}" class="panel-collapse collapse {% if row.index==0 %}in{% endif %}" role="tabpanel">
+    <div class="panel-body">
+        {{ fields.users.name.content }}
+    </div>
+</div>

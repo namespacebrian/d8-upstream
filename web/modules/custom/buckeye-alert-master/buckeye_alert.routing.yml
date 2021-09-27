@@ -1,0 +1,8 @@
+buckeye_alert.config:
+  path: 'admin/config/buckeye_alert'
+  defaults:
+    _form: '\Drupal\buckeye_alert\Form\BuckeyeAlertsConfigurationForm'
+    _title: 'Buckeye Alerts'
+  requirements:
+    _permission: 'administer buckeye alerts'
+

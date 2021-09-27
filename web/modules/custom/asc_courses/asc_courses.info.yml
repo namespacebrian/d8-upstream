@@ -1,0 +1,9 @@
+name: ASC Courses
+description: Import Course information from EIP
+package: Custom
+
+type: module
+core_version_requirement: ^8 || ^9
+
+php: 7.2
+

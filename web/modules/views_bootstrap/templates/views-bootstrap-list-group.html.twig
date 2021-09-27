@@ -1,0 +1,41 @@
+{#
+/**
+ * @file views-bootstrap-list-group.html.twig
+ * Default simple view template to display Bootstrap List Group.
+ *
+ * Available variables:
+ * - view: The view object.
+ * - rows: A list of the view's row items.
+ * - id: A valid HTML ID and guaranteed to be unique.
+ *
+ * @see template_preprocess_views_bootstrap_list_group()
+ *
+ * @ingroup views_templates
+ */
+#}
+{% set div_classes = [] %}
+{% set heading_classes = [] %}
+{% if panels %}
+  {% set div_classes = div_classes|merge(['panel', 'panel-default']) %}
+  {% set heading_classes = heading_classes|merge(['panel-heading']) %}
+{% endif %}
+{%
+  set classes = [
+    'views-view-list-group',
+    'list-group',
+  ]
+%}
+{% set title_attributes = create_attribute({'class': ['accordion-toggle', 'collapsed']}) %}
+{% if group_title %}<div{{ create_attribute({'class': div_classes}) }}>{% endif %}
+{% if group_title %}<div{{ create_attribute({'class': heading_classes}) }}><h4>{{ group_title }}</h4></div>{% endif %}
+<ul id="{{ id }}" {{ attributes.addClass(classes) }}>
+    {% for key, row in rows %}
+      <li class="list-group-item">
+          {% if row.title %}
+              <h4 class="list-group-item-heading">{{ row.title }}</h4>
+          {% endif %}
+          <p class="list-group-item-text">{{ row.content }}</p>
+      </li>
+    {% endfor %}
+</ul>
+{% if group_title %}</div>{% endif %}

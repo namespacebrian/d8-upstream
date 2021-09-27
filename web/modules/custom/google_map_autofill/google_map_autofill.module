@@ -1,0 +1,19 @@
+<?php
+function google_map_autofill_form_alter(&$form, &$form_state, $form_id) {
+  if(in_array($form_id,['user_form','user_edit_form'])) {
+    $form['field_google_map']['#disabled'] = 'disabled';
+  }
+  if(in_array($form_id,['user-register-form','user_register_form'])) {
+    $form['field_google_map']['#disabled'] = 'disabled';
+  }
+}
+
+function google_map_autofill_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if($entity->bundle() == "user"){
+    //get content from field_address and check it for linebreaks; if linebreaks exist replace them with single space
+    $address = trim(preg_replace('/\s+/', ' ', $entity->field_address->value));
+    //set field_google_map value to equal field_address
+    $entity->field_google_map->value = $address;
+    //save is done automatically
+  }
+}

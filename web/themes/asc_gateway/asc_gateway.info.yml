@@ -1,0 +1,29 @@
+core_version_requirement: ^8 || ^9
+type: theme
+base theme: bootstrap
+
+name: 'asc_gateway'
+description: 'Uses the Bootstrap framework Sass source files and must be compiled (not for beginners).'
+package: 'Bootstrap'
+
+regions:
+  top_head: 'OSU Nav'
+  header: 'Header'
+  navigation: 'Navigation'
+  breadcrumb: 'Breadcrumbs'
+  content: 'Content'
+  sidebar_first: 'Left Siderbar'
+  sidebar_second: 'Right Siderbar'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - 'asc_gateway/global-styling'
+  - 'asc_gateway/bootstrap-scripts'
+  - 'asc_gateway/osu-webfonts'
+  #- 'asc_gateway/font-awesome'
+
+ckeditor_stylesheets:
+  - css/style.css
+  - 'https://www.osu.edu/assets/fonts/webfonts.css'

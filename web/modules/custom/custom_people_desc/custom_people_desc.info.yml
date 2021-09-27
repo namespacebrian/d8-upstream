@@ -1,0 +1,7 @@
+name: Custom People Descriptions
+description: 'Alters descriptions for username and email on People Edit form'
+type: module
+core_version_requirement: ^8 || ^9
+package: ASC Tech
+dependencies:
+  - drupal:user

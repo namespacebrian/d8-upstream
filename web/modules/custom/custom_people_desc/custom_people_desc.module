@@ -1,0 +1,11 @@
+<?php
+function custom_people_desc_form_alter(&$form, &$form_state, $form_id) {
+  if(in_array($form_id,['user_form','user_edit_form'])) {
+    $form['account']['mail']['#description'] = t('Add email address of user being added.');
+    $form['account']['name']['#description'] = t('Note: Put the full name.#@osu.edu of the person being added. If they are not an Ohio State person then insert their email address.');
+  }
+  if(in_array($form_id,['user-register-form','user_register_form'])) {
+    $form['account']['mail']['#description'] = t('Add email address of user being added.');
+    $form['account']['name']['#description'] = t('Note: Put the full name.#@osu.edu of the person being added. If they are not an Ohio State person then insert their email address.');
+  }
+}

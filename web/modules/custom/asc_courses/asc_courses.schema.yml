@@ -1,0 +1,29 @@
+asc_courses.settings:
+  type: config_object
+  label: 'schema label - ASC Courses Settings' # I don't know if these schema labels are surfaced in the admin UI at all
+  mapping:
+    asc_courses:
+      type: mapping
+      mapping:
+        dept_org:
+          type: text
+          label: 'schema - D-Org number(s) (e.g. D1435)' # I don't know if these schema labels are surfaced in the admin UI at all
+        individual_courses:
+          type: text
+          label: 'schema - Individual course selections' # see comment above
+        qa_consumer_key:
+          type: text
+          label: 'schema - QA Consumer Key' # see comment above
+        qa_consumer_secret:
+          type: text
+          label: 'schema - QA Consumer Secret' # see comment above
+        prod_consumer_key:
+          type: text
+          label: 'schema - Production Consumer Key' # see comment above
+        prod_consumer_secret:
+          type: text
+          label: 'schema - Production Consumer Secret' # see comment above
+        eip_environment:
+          type: text
+          label: 'schema - EIP Environment' # see comment above
+

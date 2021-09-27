@@ -1,0 +1,21 @@
+diff --git a/src/Plugin/SocialMediaLinks/Platform/GooglePlus.php b/src/Plugin/SocialMediaLinks/Platform/GooglePlus.php
+index 703b630..6912521 100644
+--- a/src/Plugin/SocialMediaLinks/Platform/GooglePlus.php
++++ b/src/Plugin/SocialMediaLinks/Platform/GooglePlus.php
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-namespace Drupal\social_media_links\Plugin\SocialMediaLinks\Platform;
++// namespace Drupal\social_media_links\Plugin\SocialMediaLinks\Platform;
+ 
+-use Drupal\social_media_links\PlatformBase;
++// use Drupal\social_media_links\PlatformBase;
+ 
+ /**
+  * Provides 'GooglePlus' platform.
+@@ -13,4 +13,4 @@ use Drupal\social_media_links\PlatformBase;
+  *   urlPrefix = "https://plus.google.com/",
+  * )
+  */
+-class GooglePlus extends PlatformBase {}
++// class GooglePlus extends PlatformBase {}

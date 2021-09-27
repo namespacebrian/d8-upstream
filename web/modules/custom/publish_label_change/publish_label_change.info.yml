@@ -1,0 +1,7 @@
+name: Publish Label Change
+description: 'Automatically changes the Published label for a node so that users will not mistake node publish checkbox with paragraph publish checkbox'
+type: module
+core_version_requirement: ^8 || ^9
+package: ASC Tech
+dependencies:
+  - drupal:node

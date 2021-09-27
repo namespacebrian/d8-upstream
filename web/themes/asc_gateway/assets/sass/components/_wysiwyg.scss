@@ -1,0 +1,117 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+
+//
+// WYSIWYG Style Dropdown Button
+// --------------------------------------------------
+
+.btn-wysiwyg {
+  color: $white !important;
+  background-color: #960000 !important;
+  border-color: #830000 !important;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 1.42857;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  .fa-angle-right {
+    margin-left: 10px;
+  }
+
+
+  &:hover {
+    color: $white !important;
+    background-color: #630000 !important;
+    border-color: #460000 !important;
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}
+
+
+
+//
+// Figure
+// --------------------------------------------------
+
+.wrapper-15 {
+  width: 15%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-25 {
+  width: 25%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-33 {
+  width: 33%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-50 {
+  width: 50%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-66 {
+  width: 66%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-75 {
+  width: 75%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}
+
+.wrapper-100 {
+  width: 100%;
+  padding: 0 25px;
+
+  img {
+    margin: 0 auto;
+  }
+}

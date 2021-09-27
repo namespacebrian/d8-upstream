@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * MathJax module install.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function mathjax_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $config = Drupal::config('mathjax.settings');
+    if (!$config->get('use_cdn')) {
+      if (!_mathjax_library_present()) {
+        $requirements['mathjax_local_libraries'] = [
+          'title' => t('MathJax'),
+          'value' => t('Missing JavaScript libraries'),
+          'description' => t("MathJax is configured to use local library files but they could not be found. See the README."),
+          'severity' => REQUIREMENT_ERROR,
+        ];
+      }
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Determines whether the MathJax sources are present.
+ *
+ * @return bool
+ *   True if MathJax is installed
+ */
+function _mathjax_library_present() {
+  $path = Drupal::root() . '/libraries/MathJax/MathJax.js';
+  return file_exists($path);
+}
+
+/**
+ * Update the CDN URL.
+ */
+function mathjax_update_8201() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('mathjax.settings');
+  $url = $config->get('cdn_url');
+  $new = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js';
+  $old = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js';
+  if (strpos($url, $old) !== FALSE) {
+    $url = str_replace($old, $new, $url);
+    $config->set('cdn_url', $url)->save(TRUE);
+  }
+}
+
+/**
+ * Enable on admin to preserve backwards compatibility.
+ */
+function mathjax_update_8202() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('mathjax.settings');
+  $config->set('enable_for_admin', 1)->save(TRUE);
+}

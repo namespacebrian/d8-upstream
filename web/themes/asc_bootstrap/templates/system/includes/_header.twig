@@ -1,0 +1,66 @@
+<header role="banner">
+
+    <div aria-labelledby="osu_navbar_heading" id="osu_navbar" role="navigation">
+      <h2 class="osu-semantic" id="osu_navbar_heading">Ohio State nav bar</h2>
+
+      <div class="container">
+        <div class="univ_info">
+          <p class="univ_name"><a href="http://osu.edu" title="The Ohio State University">The Ohio State University</a></p>
+        </div>
+        <!-- /univ_info -->
+
+        <div class="univ_links">
+          <div class="links">
+            <ul>
+              <li><a class="help" href="http://www.osu.edu/help.php">Help</a></li>
+              <li><a class="buckeyelink" href="http://buckeyelink.osu.edu/">BuckeyeLink</a></li>
+              <li><a class="map" href="http://www.osu.edu/map/">Map</a></li>
+              <li><a class="findpeople" href="http://www.osu.edu/findpeople.php">Find People</a></li>
+              <li><a class="webmail" href="https://email.osu.edu/">Webmail</a></li>
+              <li><a class="search" href="http://www.osu.edu/search/">Search Ohio State</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {# <div class="alert alert-warning text-center">
+      Ohio State is <strong>suspending face-to-face classes</strong> and transitioning to virtual learning for the remainder of the semester. <a href="https://wexnermedical.osu.edu/features/coronavirus/staff-and-students" class="alert-link">Additional guidance on work arrangements, travel and events.</a>
+    </div> #}
+
+    <div class="container">
+      <div id="header-logos">
+        <a href="/" class="dep-logo">
+          <img alt="{{ site_name }}" title="{{ site_name }}" src="/sites/default/files/logos/department-logo.svg" id="dep-logo-img" />
+        </a>
+
+        <a href="https://artsandsciences.osu.edu/" class="osu-logo">
+          {% if not osu_logo %}
+            <img alt="College of Arts and Sciences logo" title="College of Arts and Sciences logo" src="/themes/asc_bootstrap/images/logos/asc-logo.svg"  id="asc-logo-img" />
+          {% elseif osu_logo %}
+            <img alt="The Ohio State University logo" title="The Ohio State University logo" src="/themes/asc_bootstrap/images/logos/osu-logo.svg" onerror="this.style.display='none'" id="osu-logo-img" />
+          {% endif %}
+        </a>
+      </div>
+      <div id="header-logos-mobile">
+        <a href="https://artsandsciences.osu.edu/" class="osu-logo">
+          {% if not osu_logo %}
+            <img alt="College of Arts and Sciences logo" title="College of Arts and Sciences logo" src="/themes/asc_bootstrap/images/logos/asc-logo-mobile.svg" id="asc-logo-img-mobile" />
+          {% elseif osu_logo %}
+            <img alt="The Ohio State University logo" title="The Ohio State University logo" src="/themes/asc_bootstrap/images/logos/osu-logo-mobile.svg" onerror="this.style.display='none'" id="osu-logo-img-mobile" />
+          {% endif %}
+        </a>
+        <a href="/" class="dep-logo">
+          <img alt="{{ site_name }}" title="{{ site_name }}" src="/sites/default/files/logos/department-logo-mobile.svg" id="dep-logo-img" />
+        </a>
+      </div>
+    </div>
+<div class="container">
+    {% if page.header %}
+        {% block header %}
+
+            {{ page.header }}
+
+        {% endblock %}
+      {% endif %}
+</div>
+  </header>

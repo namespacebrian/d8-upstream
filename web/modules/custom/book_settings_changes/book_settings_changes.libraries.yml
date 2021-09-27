@@ -1,0 +1,6 @@
+# book_settings_changes.libraries.yml
+custom_css:
+  version: 1.x
+  css:
+    theme:
+      css/styles.css: {}

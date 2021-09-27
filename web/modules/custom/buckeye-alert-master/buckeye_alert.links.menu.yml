@@ -1,0 +1,4 @@
+buckeye_alert.settings:
+  title: 'Buckeye Alert'
+  parent: system.admin_config_system
+  route_name: 'buckeye_alert.config'

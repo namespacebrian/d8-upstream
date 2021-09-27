@@ -1,0 +1,7 @@
+name: Mobile Device Detection
+type: module
+description: 'This module can detect any mobile devices.'
+package: Other
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:views

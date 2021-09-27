@@ -1,0 +1,7 @@
+buckeye_alert_url: //www.osu.edu/feeds/emergency-alert.rss
+buckeye_alert_test: 0
+buckeye_alert_class: l-constrained
+buckeye_alert_animate: 1
+buckeye_alert_addl: ''
+buckeye_alert_addl_date: null
+buckeye_alert_addl_expire: '24'

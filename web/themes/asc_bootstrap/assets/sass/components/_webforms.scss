@@ -1,0 +1,73 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Webforms
+// --------------------------------------------------
+
+.form-inline .control-label {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+
+textarea.form-control {
+  margin-bottom: 10px;
+}
+
+label {
+  width: 100%;
+}
+
+form {
+  margin-bottom: 15px;
+
+  .form-required:after {
+    background-size: 7px 7px;
+    height: 7px;
+    width: 7px;
+  }
+
+  .form-no-label {
+    margin-bottom: 0;
+  }
+
+  .help-block {
+    margin: 0;
+  }
+
+  .description {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .js-form-item-number {
+
+    .webform-element-description {
+      margin-bottom: 15px;
+    }
+  }
+
+  .js-form-item-date {
+
+    .webform-element-description {
+      margin-bottom: 15px;
+    }
+  }
+
+  .captcha {
+    margin-bottom: 15px;
+  }
+}
+
+.webform-element-description {
+  color: $gray-6;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.webform-element-more {
+  color: $gray-6;
+  font-size: 12px;
+  margin-bottom: 15px;
+}

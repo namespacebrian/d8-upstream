@@ -1,0 +1,196 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// People
+// --------------------------------------------------
+
+//## People grid.
+.view-people-directory {
+
+  h3 {
+    text-transform: uppercase;
+  }
+
+  .row {
+    display: flex;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+  }
+
+  .view-header {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid #979797 3px;
+  }
+
+  .people-row {
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+
+    .inner-people-grid {
+      flex: 1;
+      background: #F9F9F9;
+      padding: 20px;
+      margin-bottom: 30px;
+
+      @media (max-width: 768px) {
+          flex: none;
+      }
+
+      .views-field-user-picture {
+        margin-bottom: 10px;
+      }
+
+      .views-field-nothing-1 {
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .views-field-field-first-name,
+      .views-field-field-last-name {
+        font-weight: bold;
+        font-size: 16px;
+
+        a {
+
+          &:hover {
+            color: $red-base;
+          }
+        }
+      }
+    }
+  }
+}
+
+.view-display-id-page_1 {
+  margin-bottom: 40px;
+}
+
+.square-opic {
+  max-width: 220px;
+  max-height: 220px;
+  overflow: hidden;
+  position: relative;
+
+  &:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    max-height: 630px;
+  }
+}
+
+.square-opic-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+// --------------------------------------------------
+
+//## Bio.
+
+.path-user .page-header {
+  display: none;
+}
+
+.bio-header-top {
+  background: #F9F9F9;
+
+  .bio-top-right {
+
+    img {
+      padding: 15px 0;
+      width: 100%;
+    }
+  }
+
+  .field--name-field-google-map-location {
+
+    .field--item {
+      padding: 20px 0;
+
+      .geolocation-formatter-map-wrapper {
+        border: solid 2px #979797;
+      }
+    }
+  }
+
+  .bio-top-left {
+
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+.bio-header {
+  width: 100%;
+  float: left;
+  margin: 0 0 20px;
+}
+
+.bio-btm-left {
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .carousel {
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+
+    .field--name-field-media-image {
+      padding-bottom: 0;
+
+      .img-responsive {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 1030px) {
+      height: auto;
+    }
+  }
+
+  .bio-exp {
+    padding-left: 0;
+  }
+
+  .taxonomy-people-heading {
+    float: left;
+    width: 100%;
+    padding-top: 15px;
+
+    h2 {
+      line-height: 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.bio-btm-right {
+  h3 {
+    font-size: 18px;
+    padding-top: 20px;
+  }
+}

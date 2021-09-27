@@ -1,0 +1,21 @@
+{
+    "name": "org/asc_courses",
+    "description": "This extension provides new commands for Drush.",
+    "type": "drupal-drush",
+    "authors": [
+        {
+            "name": "Brian Weaver",
+            "email": "weaver.299@osu.edu"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0"
+    },
+    "extra": {
+        "drush": {
+            "services": {
+                "drush.services.yml": "^9"
+            }
+        }
+    }
+}

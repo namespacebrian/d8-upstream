@@ -1,0 +1,94 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Landing Page
+// --------------------------------------------------
+
+//## Carousel.
+
+.landing-page {
+  .carousel {
+    height: auto;
+    overflow: hidden;
+    margin-top: 30px;
+  }
+
+  ul {
+    color: $gray-6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+
+
+.page-node-type-landing-page .page-header {
+    margin: 22px 0px 0px;
+    padding: 0;
+}
+
+
+// --------------------------------------------------
+
+//## Short Description and Stats.
+
+#tagline {
+  text-align: center;
+}
+
+#sht-desc {
+  text-align: center;
+}
+
+.stats {
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 72px;
+}
+
+.stat-desc {
+  font-size: 20px;
+}
+
+.stat-desc:nth-child(odd) {
+  float: right;
+}
+
+
+// --------------------------------------------------
+
+//## Call Out Boxes.
+
+.btm-txt {
+  font-size: 10pt !important;
+  background: #D8D8D8;
+  padding: 10px;
+}
+
+/* Arrow at btm of landing page slider - see standard sites for example
+.page-node-type-landing-page {
+  #half-t-left {
+    position: absolute;
+    z-index: 2;
+    width: $half;
+    left: 0;
+    bottom: 0px;
+    border-bottom: 20px solid #FFF;
+    border-right: 20px solid transparent;
+  }
+  #half-t-right {
+    position: absolute;
+    z-index: 2;
+    width: $half;
+    left: $half;
+    bottom: 0px;
+    right: 0;
+    border-bottom: 20px solid #FFF;
+    border-left: 20px solid transparent;
+  }
+}
+*/
+

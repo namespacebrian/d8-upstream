@@ -1,0 +1,13 @@
+.osu-semantic {position: absolute; left: 0; top: -500px; width: 1px; height: 1px; overflow: hidden;}
+
+/* Buckeye Alert */
+#buckeye_alert {background:#900; color:#fff; margin: 0; padding:0; display:none; font-family:Arial,sans-serif; font-weight: 700;}
+#buckeye_alert h3 {color:#fff; padding:.5em 0 0 0; margin-bottom:0;}
+#buckeye_alert p {padding:0.8em 0.5em; margin:0; color: #fff;}
+#buckeye_alert a {color:#fff; text-decoration:underline;}
+
+#buckeye_alert_msg p {font-size:1.1em;}
+#buckeye_alert_extra p {font-size:1em; padding-top:0;}
+
+#buckeye_alert {font-family:'proximanova',Arial,sans-serif; font-weight:700;}
+#buckeye_alert_extra {font-weight: 400;}

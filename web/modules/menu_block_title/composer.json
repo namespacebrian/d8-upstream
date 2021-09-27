@@ -1,0 +1,23 @@
+{
+  "name": "drupal/menu_block_title",
+  "description": "Provides an option on menu based blocks to show the parent menu item as the block title",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "homepage": "https://drupal.org/project/menu_block_title",
+  "authors": [
+    {
+      "name": "Tancredi D'Onofrio (tanc)",
+      "homepage": "https://www.drupal.org/u/tanc",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Finn Lewis (finn.lewis)",
+      "homepage": "https://www.drupal.org/u/finn.lewis",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/menu_block_title",
+    "source": "https://cgit.drupalcode.org/menu_block_title"
+  }
+}

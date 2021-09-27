@@ -1,0 +1,275 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Landing Page
+// --------------------------------------------------
+
+.page-node-type-landing-page {
+
+  .page-header {
+    display: none;
+  }
+
+  .breadcrumb {
+    background-color: transparent;
+    padding: 0 0 0 15px;
+  }
+
+  main {
+    margin-bottom: 44px;
+  }
+}
+
+
+.landing-page-title-head {
+  color: $white;
+  padding: 20px 0;
+
+  h1 {
+    color: $white;
+    padding-left: 15px;
+  }
+
+  a {
+    color: $white;
+  }
+
+  .active {
+    color: $white;
+    font-weight: bold;
+  }
+}
+
+
+
+// --------------------------------------------------
+
+//## Carousel.
+
+.landing-page .carousel {
+    height: auto;
+    overflow: hidden;
+    max-height: 550px;
+
+    .carousel-inner {
+
+      @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .item {
+          flex-shrink: 0;
+          min-width: 100%;
+          min-height: 100%;
+        }
+      }
+    }
+
+    .img-responsive {
+      width: 100%;
+    }
+
+    .field--name-field-media-image {
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 1030px) {
+      height: auto;
+    }
+
+    @media (max-width: 768px) {
+      max-height: 100%;
+    }
+}
+
+
+// --------------------------------------------------
+
+//## Short Description and Stats.
+
+#sht-desc {
+  margin: 40px 0;
+
+  h2 {
+    margin: $center-margin !important;
+    text-align: center;
+    float: none;
+    p {
+      font-size: 36px;
+      line-height: 1;
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+.stats {
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 72px;
+}
+
+.stat-desc {
+  font-size: 20px;
+}
+
+.stat-desc:nth-child(odd) {
+  float: right;
+}
+
+
+// --------------------------------------------------
+
+//## Call Out Boxes.
+
+.page-node-type-landing-page {
+  #half-t-left {
+    position: absolute;
+    z-index: 2;
+    width: $half;
+    left: 0;
+    bottom: 0px;
+    border-bottom: 20px solid #FFF;
+    border-right: 20px solid transparent;
+
+    @media (max-width: 768px) {
+      bottom: -2px;
+    }
+  }
+  #half-t-right {
+    position: absolute;
+    z-index: 2;
+    width: $half;
+    left: $half;
+    bottom: 0px;
+    right: 0;
+    border-bottom: 20px solid #FFF;
+    border-left: 20px solid transparent;
+
+     @media (max-width: 768px) {
+      bottom: -2px;
+    }
+  }
+}
+
+
+// --------------------------------------------------
+
+//## News, Events, People Blocks.
+
+.block-wrapper {
+  .region:nth-child(odd) {
+    background: $brand-lgray;
+  }
+}
+
+.view-display-id-block_1,
+.view-display-id-block_2 {
+  .view-header {
+    text-transform: uppercase;
+    float: left;
+    width: 100%;
+    margin: 10px 0 15px;
+    padding-bottom: 0;
+    border-bottom: 1px solid #979797;
+
+    .txt-re-news {
+      text-align: left;
+      padding: 0;
+
+      h2 {
+        color: $purple;
+        font-size: 22px;
+      }
+    }
+
+    .txt-more-news-head {
+      text-align: right;
+      padding: 0;
+
+      h3, a {
+        color: $purple;
+        font-size: 22px;
+
+        svg {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  .view-content {
+    float: left;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      .row {
+          margin-bottom: 0;
+      }
+    }
+  }
+
+  .view-footer {
+    text-transform: uppercase;
+    float: left;
+    width: 100%;
+    margin: 10px 0 15px;
+    border-bottom: 1px solid #979797;
+    display: none;
+
+    .txt-more-news-foot {
+      text-align: right;
+      padding: 0;
+
+      h3, a {
+        color: $purple;
+        font-size: 22px;
+
+        svg {
+          font-size: 20px;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+}
+
+
+#views-bootstrap-people-directory-block-1 {
+  .people-row .inner-people-grid {
+    background: $white;
+  }
+}
+
+.views-field-field-evt-image {
+  .field--name-field-media-image {
+    padding-bottom: 0;
+  }
+}
+
+.views-field-field-news-image2 {
+  .field--name-field-media-image {
+    padding-bottom: 0;
+  }
+}
+
+.inner-people-grid {
+  .views-field-nothing-1 {
+      margin-bottom: 10px;
+  }
+}
+

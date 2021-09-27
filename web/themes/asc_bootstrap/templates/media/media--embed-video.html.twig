@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a media item.
+ *
+ * Available variables:
+ * - media: The media item, with limited access to object properties and
+ *   methods. Only method names starting with "get", "has", or "is" and
+ *   a few common methods such as "id", "label", and "bundle" are available.
+ *   For example:
+ *   - entity.getEntityTypeId() will return the entity type ID.
+ *   - entity.hasField('field_example') returns TRUE if the entity includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   Calling other methods, such as entity.delete(), will result in
+ *   an exception.
+ *   See \Drupal\Core\Entity\EntityInterface for a full list of methods.
+ * - name: Name of the media item.
+ * - content: Media content.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if view_mode == 'image_video_gallery' %}
+  <div class="gallery-card video-gallery">
+    <div{{ attributes }}>
+      {{ title_suffix.contextual_links }}
+
+        <a href="{{ content.field_media_video_embed_field[0]['#url'] }}" data-toggle="lightbox" data-title="{{ content.field_video_title[0] }}" data-footer="{{ content.field_video_caption[0] }}" data-gallery="Gallery">
+
+          <img src="{{ content['thumbnail'][0]['#url'] }}" alt="{{ content.field_video_title2[0] }}" alt="{{ content.field_video_title[0] }}" />
+        </a>
+
+    </div>
+  </div>
+{% else %}
+  {{ content }}
+{% endif %}

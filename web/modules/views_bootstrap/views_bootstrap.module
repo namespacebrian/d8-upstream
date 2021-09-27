@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Custom functions for Views Bootstrap.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views_bootstrap\ViewsBootstrap;
+
+/**
+ * Implements hook_help().
+ */
+function views_bootstrap_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.views_bootstrap':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The <a href=":bootstrap">Views Bootstrap module</a> adds styles to Views to output the results of a view as several common <a href=":components">Twitter Bootstrap</a> components.', [
+        ':bootstrap' => 'https://www.drupal.org/project/views_bootstrap',
+        ':components' => 'https://getbootstrap.com/docs/3.4/components/',
+      ]) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('<a href=":views">Create a view</a> using one of the following styles:', [':views' => '/admin/structure/views/add']) . '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('<a href=":docs">Accordion</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/accordion']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Cards</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/cards']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Carousel</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/carousel']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Dropdown</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/dropdown']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Grid</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/grid']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Thumbnails</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/thumbnail']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Tables</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/table']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Tabs</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/tabs']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">Media object</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/media-object']) . '</li>';
+      $output .= '<li>' . t('<a href=":docs">List group</a>', [':docs' => 'https://www.drupal.org/docs/contributed-modules/views-bootstrap-for-bootstrap-3/list-group']) . '</li>';
+      $output .= '<ul>';
+
+      return $output;
+  }
+}
+
+/**
+ * {@inheritdoc}
+ */
+function views_bootstrap_theme() {
+  return ViewsBootstrap::getThemeHooks();
+}

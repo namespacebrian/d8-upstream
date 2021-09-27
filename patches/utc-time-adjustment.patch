@@ -1,0 +1,25 @@
+diff --git a/includes/addtocalendar.build.inc b/includes/addtocalendar.build.inc
+index 388d6ea..f178a63 100644
+--- a/includes/addtocalendar.build.inc
++++ b/includes/addtocalendar.build.inc
+@@ -57,9 +57,20 @@ function _addtocalendar_preprocess_field(&$variables) {
+       ];
+ 
+       foreach ($values as $index => $date_val) {
++        $daylight_savings = date('I');
+         $date = new DrupalDateTime(preg_replace('/T/', ' ', $values[$index]['value']), $timeZone);
++        if ($daylight_savings == '1') {
++          $date->modify('-4 hours');
++        } else {
++          $date->modify('-5 hours');
++        }
+         if (!empty($values[$index]['end_value']) && isset($values[$index]['end_value'])) {
+           $end_date = new DrupalDateTime(preg_replace('/T/', ' ', $values[$index]['end_value']), $timeZone);
++          if ($daylight_savings == '1') {
++            $end_date->modify('-4 hours');
++          } else {
++            $end_date->modify('-5 hours');
++          }
+         }
+ 
+         $build['addtocalendar'][$index]['atc_date_start'] = [

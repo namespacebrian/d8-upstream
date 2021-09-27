@@ -1,0 +1,106 @@
+diff --git a/config/install/smtp.settings.yml b/config/install/smtp.settings.yml
+index 7b9865e..bf8d3a0 100644
+--- a/config/install/smtp.settings.yml
++++ b/config/install/smtp.settings.yml
+@@ -3,6 +3,7 @@ smtp_host: ''
+ smtp_hostbackup: ''
+ smtp_port: '25'
+ smtp_protocol: 'standard'
++smtp_timeout: 30
+ smtp_username: ''
+ smtp_password: ''
+ smtp_from: ''
+diff --git a/config/schema/smtp.schema.yml b/config/schema/smtp.schema.yml
+index cda9cd0..1128d11 100644
+--- a/config/schema/smtp.schema.yml
++++ b/config/schema/smtp.schema.yml
+@@ -17,6 +17,9 @@ smtp.settings:
+     smtp_protocol:
+       type: string
+       label: 'Use encrypted protocol'
++    smtp_timeout:
++      type: integer
++      label: 'Amount of seconds for the SMTP command to timeout'
+     smtp_username:
+       type: string
+       label: 'Username'
+diff --git a/smtp.install b/smtp.install
+index 389f250..e1fe0e5 100644
+--- a/smtp.install
++++ b/smtp.install
+@@ -16,9 +16,18 @@ function smtp_uninstall() {
+   $default_system_mail = 'php_mail';
+   $mail_config = $config->getEditable('system.mail');
+   $default_interface = (!$smtp_config->get('prev_mail_system')) ? $smtp_config->get('prev_mail_system') : $default_system_mail;
+-  $mail_config ->set('interface.default', $default_interface)
++  $mail_config->set('interface.default', $default_interface)
+     ->save();
+ 
+   // Cleaning garbage.
+   $smtp_config->delete();
+ }
++
++/**
++ * Add SMTP timeout configuration and change default to 30.
++ */
++function smtp_update_8001() {
++  \Drupal::configFactory()->getEditable('smtp.settings')
++    ->set('smtp_timeout', 30)
++    ->save(TRUE);
++}
+diff --git a/src/Form/SMTPConfigForm.php b/src/Form/SMTPConfigForm.php
+index e6c93aa..a459f33 100644
+--- a/src/Form/SMTPConfigForm.php
++++ b/src/Form/SMTPConfigForm.php
+@@ -133,7 +133,13 @@ class SMTPConfigForm extends ConfigFormBase {
+       '#description' => $encryption_description,
+       '#disabled' => $this->isOverridden('smtp_protocol'),
+     ];
+-
++    $form['server']['smtp_timeout'] = [
++      '#type' => 'textfield',
++      '#title' => t('Timeout'),
++      '#default_value' => $config->get('smtp_timeout'),
++      '#description' => t('Amount of seconds for the SMTP commands to timeout.'),
++      '#disabled' => $this->isOverridden('smtp_timeout'),
++    ];
+     $form['auth'] = [
+       '#type' => 'details',
+       '#title' => $this->t('SMTP Authentication'),
+@@ -157,7 +163,7 @@ class SMTPConfigForm extends ConfigFormBase {
+ 
+     $form['email_options'] = [
+       '#type'  => 'details',
+-      '#title' =>$this->t('E-mail options'),
++      '#title' => $this->t('E-mail options'),
+       '#open' => TRUE,
+     ];
+     $form['email_options']['smtp_from'] = [
+@@ -300,6 +306,7 @@ class SMTPConfigForm extends ConfigFormBase {
+       'smtp_hostbackup',
+       'smtp_port',
+       'smtp_protocol',
++      'smtp_timeout',
+       'smtp_username',
+       'smtp_from',
+       'smtp_fromname',
+diff --git a/src/Plugin/Mail/SMTPMailSystem.php b/src/Plugin/Mail/SMTPMailSystem.php
+index 1ca4205..8967a08 100644
+--- a/src/Plugin/Mail/SMTPMailSystem.php
++++ b/src/Plugin/Mail/SMTPMailSystem.php
+@@ -141,6 +141,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
+ 
+     // Create a new PHPMailer object - autoloaded from registry.
+     $mailer = new PHPMailer();
++    $mailer->Timeout = $this->smtpConfig->get('smtp_timeout');
+ 
+     // Turn on debugging, if requested.
+     if ($this->smtpConfig->get('smtp_debugging') && \Drupal::currentUser()->hasPermission('administer smtp module')) {
+@@ -250,7 +251,6 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
+               $mailer->ContentType = $content_type = 'multipart/alternative';
+ 
+               // Get the boundary ID from the Content-Type header.
+-
+               $boundary = $this->getSubstring($value, 'boundary', '"', '"');
+               break;
+ 

@@ -1,0 +1,45 @@
+<?php
+
+  use Drupal\Core\Datetime\DrupalDateTime;
+
+
+
+  function buckeye_alert_preprocess_page(&$variables) {
+    $config = \Drupal::config('buckeye_alert.buckeye_alert_config');
+
+    $buckeye_alert_url = $config->get('buckeye_alert_url');
+    $buckeye_alert_test = $config->get('buckeye_alert_test');
+    $buckeye_alert_addl_date = $config->get('buckeye_alert_addl_date');
+    $buckeye_alert_addl_expire = $config->get('buckeye_alert_addl_expire');
+    $buckeye_alert_class = $config->get('buckeye_alert_class');
+    $buckeye_alert_animate = $config->get('buckeye_alert_animate');
+    $buckeye_alert_addl = $config->get('buckeye_alert_addl');
+
+    //use the test feed if checked
+    if ($buckeye_alert_test) {
+      $url = '//www.osu.edu/feeds/alert-test/feed.rss';
+    } else {
+      $url = $buckeye_alert_url;
+    }
+
+    $additional_html = '';
+    $now = new DrupalDateTime();
+    if($buckeye_alert_addl_date !== null) {
+      //get additional alert date and time
+      $buckeye_alert_addl_date = new DrupalDateTime($config->get('buckeye_alert_addl_date'));
+      //calculate expiration time
+      $expires = new DrupalDateTime($config->get('buckeye_alert_addl_date'));
+      $expires->add(new DateInterval('PT'.$buckeye_alert_addl_expire.'H'));
+      //show additional message if the time has not expired
+      if ($now >= $buckeye_alert_addl_date && $now < $expires) {
+        $additional_html = $buckeye_alert_addl;
+      }
+    }
+
+    //attach js libraries and pass drupal variables to dom
+    $variables['#attached']['library'][] = 'buckeye_alert/buckeye_alert';
+    $variables['#attached']['drupalSettings']['buckeye_alert']['feed_url'] = $url;
+    $variables['#attached']['drupalSettings']['buckeye_alert']['messageClass'] = $buckeye_alert_class;
+    $variables['#attached']['drupalSettings']['buckeye_alert']['animate'] = $buckeye_alert_animate;
+    $variables['#attached']['drupalSettings']['buckeye_alert']['additional'] = $additional_html;
+  }

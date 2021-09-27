@@ -1,0 +1,11 @@
+name: Block Region Permissions
+description: "Adds permissions for administering 'blocks' based on each theme's regions."
+package: Block
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+
+# Information added by Drupal.org packaging script on 2020-07-05
+version: '8.x-1.4'
+project: 'block_region_permissions'
+datestamp: 1593974234

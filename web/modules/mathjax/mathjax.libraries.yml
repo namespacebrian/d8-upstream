@@ -1,0 +1,12 @@
+config:
+  version: VERSION
+  js:
+    js/config.js: {}
+setup:
+  version: VERSION
+  js:
+    js/setup.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - mathjax/source

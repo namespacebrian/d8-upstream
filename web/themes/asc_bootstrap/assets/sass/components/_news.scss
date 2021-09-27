@@ -1,0 +1,140 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// News
+// --------------------------------------------------
+
+//## News grid.
+
+.view-news {
+  .row {
+    display: flex;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+  }
+}
+
+.news-row {
+  display: flex;
+  color: $gray-6;
+
+  @media (max-width: 768px) {
+      display: block;
+  }
+
+  .inner-news-grid {
+    border: #979797 solid 1px;
+    flex: 1;
+    background: $white;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        flex: none;
+        margin-bottom: 20px;
+      }
+  }
+
+  .views-field-created {
+    padding: 10px 10px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: $font-size-h6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .views-field-title {
+    padding: 0 10px;
+
+    a {
+      color: $gray-6;
+    }
+  }
+
+  .views-field-body {
+    padding: 0 10px 40px;
+    font-weight: 300;
+  }
+}
+
+
+// --------------------------------------------------
+
+//## News story.
+
+article.news-story {
+  margin-bottom: 16px;
+}
+
+.news-cont {
+  padding-left: 0;
+
+  .field--name-body {
+    margin: 20px 0 40px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+.news-date {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: $font-size-h6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.news-title-wrapper {
+  padding: 0;
+}
+
+.news-title {
+  text-transform: capitalize;
+}
+
+.news-img {
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+// --------------------------------------------------
+
+//## Hides core h1 title in lieu of News Stories built-in h1 title.
+
+.page-node-type-news-story .page-header {
+  display: none;
+}
+
+
+
+// --------------------------------------------------
+
+//## News taxonomy.
+
+.view-taxonomy-term {
+  .news-title {
+    display: none;
+  }
+}
+
+.taxonomy-news-heading {
+  float: left;
+  width: 100%;
+  padding-top: 15px;
+
+  h2 {
+    line-height: 0;
+    font-size: 18px;
+  }
+}

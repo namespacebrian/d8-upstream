@@ -1,0 +1,203 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Footer
+// --------------------------------------------------
+
+.footer {
+  background: #173E41;
+  border-top: none;
+  color: $white;
+  margin-top: 0;
+
+  p, h2, h3 {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .social-media-links--platforms {
+
+    a {
+      color: $white;
+
+      &:hover {
+        color: #cccccc;
+      }
+    }
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: transparent;
+    color: $white;
+  }
+
+  .nav > li > a {
+    padding: 0;
+  }
+
+  .footer-address {
+    a {
+      text-decoration: underline;
+    }
+
+    .contact-heading {
+      line-height: 22px;
+      color: $white;
+      margin: 11px 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: $font-size-h3;
+      font-weight: $headings-font-weight;
+    }
+  }
+
+  .footer-email {
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+#subfoot {
+  background: $deep-grey;
+  float: left;
+  width: 100%;
+  color: $white;
+  padding: 20px 0;
+
+  #access-area {
+    line-height: 1;
+    font-size: 14px;
+    margin: 15px 0;
+  }
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .sf-col2 {
+    text-align: right;
+
+    ul {
+      list-style-type: none;
+    }
+  }
+
+  .email-link {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .col-xs-12 {
+      text-align: left;
+
+      ul {
+        padding: 0;
+      }
+    }
+  }
+}
+
+
+//
+// Address
+// --------------------------------------------------
+
+.footer-address {
+  margin-bottom: 20px;
+}
+
+.footer-email {
+  margin-bottom: 20px;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-phone {
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-top: solid $gray-6 1px;
+  border-bottom: solid $gray-6 1px;
+}
+
+
+//
+// Social Media
+// --------------------------------------------------
+
+.social-media-links--platforms {
+  float: right;
+
+  .fa-twitter:before {
+      content: "\f081";
+  }
+
+  .fa-facebook:before {
+      content: "\f082";
+  }
+
+  .fa-rss:before {
+      content: "\f143";
+  }
+
+  .fa-youtube:before {
+      content: "\f166";
+  }
+
+  .fa-linkedin:before {
+      content: "\f08c";
+  }
+
+  .fa-envelope:before {
+      content: "\f199";
+  }
+
+  .fa-github:before {
+      content: "\f092";
+  }
+
+  .fa-bitbucket:before {
+      content: "\f172";
+  }
+
+  .fa-tumblr:before {
+      content: "\f174";
+  }
+
+  .fa-behance:before {
+      content: "\f1b5";
+  }
+
+  .fa-pinterest:before {
+      content: "\f0d3";
+  }
+
+  .fa-google-plus:before {
+      content: "\f0d4";
+  }
+}

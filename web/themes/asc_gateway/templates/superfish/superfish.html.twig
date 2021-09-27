@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation of the Superfish menus.
+ *
+ * Available variables:
+ * - id: Unique menu identifier.
+ * - menu_classes: Menu classes.
+ * - menu_items: Menu tree.
+ *
+ * @see template_preprocess_superfish()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<ul id="{{ id }}" class="off-canvas-menu-wrap {{ menu_classes }}">
+<div id="off-canvas-menu-title">
+  <p class="close-nav-btn">
+    Main Menu
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </p>
+
+</div>
+  {{ menu_items }}
+</ul>
+
+<p class="open-nav-btn">
+  <i class="fa fa-bars" aria-hidden="true"></i>
+  Menu
+</p>

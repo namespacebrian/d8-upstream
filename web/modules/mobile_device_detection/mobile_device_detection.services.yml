@@ -1,0 +1,9 @@
+services:
+  mobile_device_detection.properties:
+    class: Drupal\mobile_device_detection\Object\MobileDeviceDetectionAttributes
+  mobile_device_detection.object:
+    class: Drupal\mobile_device_detection\Object\MobileDeviceDetection
+    arguments: ['@mobile_device_detection.properties', '@request_stack']
+  # plugin_extender
+  mobile_device_detection.plugin_extender:
+    class: Drupal\mobile_device_detection\Plugin\views\display_extender\MobileDeviceDetectionExtenderPlugin

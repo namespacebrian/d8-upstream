@@ -1,0 +1,10 @@
+name: Mobile Detect
+type: module
+description: 'Lightweight mobile detection based on Mobile_Detect.php'
+core_version_requirement: ^8 || ^9
+package: 'Mobile Detect'
+
+# Information added by Drupal.org packaging script on 2020-12-28
+version: '8.x-2.5'
+project: 'mobile_detect'
+datestamp: 1609164344

@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation of the Superfish menus.
+ *
+ * Available variables:
+ * - id: Unique menu identifier.
+ * - menu_classes: Menu classes.
+ * - menu_items: Menu tree.
+ *
+ * @see template_preprocess_superfish()
+ *
+ * @ingroup themeable
+ */
+#}
+<span class="search-icon-mobile" role="button" aria-label="Toggle Search">
+  <a href="#" class="active-search" title="Search">
+    <i class="fa fa-search"></i>
+  </a>
+</span>
+
+<ul id="{{ id }}" class="{{ menu_classes }}">
+  {{ menu_items }}
+</ul>
+<ul>
+<span class="search-icon" role="button" aria-label="Toggle Search">
+  <a href="#" class="active-search" title="Search">
+    <i class="fa fa-search"></i>
+  </a>
+</span>

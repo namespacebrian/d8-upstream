@@ -1,0 +1,27 @@
+diff --git a/core/modules/user/src/UserAccessControlHandler.php b/core/modules/user/src/UserAccessControlHandler.php
+index 2c67acb1be..6d4602c2bf 100644
+--- a/core/modules/user/src/UserAccessControlHandler.php
++++ b/core/modules/user/src/UserAccessControlHandler.php
+@@ -120,6 +120,9 @@ protected function checkFieldAccess($operation, FieldDefinitionInterface $field_
+         // Allow view access to own mail address and other personalization
+         // settings.
+         if ($operation == 'view') {
++            if ($field_definition->getName() === 'mail' && $account->hasPermission('view user mail field')) {
++              return AccessResult::allowed()->cachePerPermissions();
++            }
+           return AccessResult::allowedIf($is_own_account)->cachePerUser();
+         }
+         // Anyone that can edit the user can also edit this field.
+diff --git a/core/modules/user/user.permissions.yml b/core/modules/user/user.permissions.yml
+index a295b1f98f..f21f1deea4 100644
+--- a/core/modules/user/user.permissions.yml
++++ b/core/modules/user/user.permissions.yml
+@@ -11,6 +11,8 @@ administer users:
+   restrict access: true
+ access user profiles:
+   title: 'View user information'
++view user mail field:
++  title: 'View user mail field'
+ change own username:
+   title: 'Change own username'
+ select account cancellation method:

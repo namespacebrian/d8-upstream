@@ -1,0 +1,59 @@
+diff --git a/sfsmallscreen.js b/sfsmallscreen.js
+index 9765fed..891088e 100644
+--- a/sfsmallscreen.js
++++ b/sfsmallscreen.js
+@@ -138,14 +138,16 @@
+           // Doing the same and making sure all the sub-menus are off-screen (hidden).
+           accordion.children('ul').removeAttr('style').not('.sf-hidden').addClass('sf-hidden');
+           // Creating the accordion toggle switch.
+-          var toggle = '<div class="sf-accordion-toggle ' + styleClass + '"><a href="#" id="' + toggleID + '"><span>' + options.title + '</span></a></div>';
++          var toggle = '<div class="sf-accordion-toggle ' + styleClass + '"><a href="#" id="' + toggleID + '"><i class="fa fa-bars" aria-hidden="true"></i> <span>' + options.title + '</span></a></div>';
+ 
+           // Adding Expand\Collapse buttons if requested.
+           if (options.accordionButton == 2){
+             accordion.addClass('sf-accordion-with-buttons');
+             var parent = accordion.find('li.menuparent');
+             for (var i = 0; i < parent.length; i++){
+-              parent.eq(i).prepend('<a href="#" class="sf-accordion-button">' + options.expandText + '</a>');
++              //adding font awesome code - bc
++              //parent.eq(i).prepend('<a href="#" class="sf-accordion-button">' + options.expandText + '</a>');
++              parent.eq(i).prepend('<a href="#" class="sf-accordion-button"><i class="fa fa-angle-right" aria-hidden="true"></i><span class="hidetxt">' + options.expandText + '</span></a>');
+             }
+           }
+           // Inserting the according and hiding the original menu.
+@@ -176,7 +178,7 @@
+               .end().hide().addClass('sf-hidden').show();
+               // Changing the caption of any existing accordion buttons to 'Expand'.
+               if (options.accordionButton == 2){
+-                accordionElement.find('a.sf-accordion-button').text(options.expandText);
++                accordionElement.find('a.sf-accordion-button').add('<i class="fa fa-angle-right" aria-hidden="true"></i><span class="hidetxt">' + options.expandText + '</span>');
+               }
+             }
+             else {
+@@ -213,7 +215,7 @@
+                 });
+                 // Changing the caption of the inserted Collapse link to 'Expand', if any is inserted.
+                 if (options.accordionButton == 2 && parent.children('.sf-accordion-button').length > 0){
+-                  parent.children('.sf-accordion-button').text(options.expandText);
++                  parent.children('.sf-accordion-button').add('<i class="fa fa-angle-right" aria-hidden="true"></i><span class="hidetxt">' + options.expandText + '</span>');
+                 }
+               }
+               // Otherwise, expand the sub-menu.
+@@ -221,7 +223,7 @@
+                 // Doing the accessibility trick and then showing the sub-menu.
+                 parent.children('ul').hide().removeClass('sf-hidden').slideDown('fast')
+                 // Changing the caption of the inserted Expand link to 'Collape', if any is inserted.
+-                .end().addClass('sf-expanded').children('a.sf-accordion-button').text(options.collapseText)
++                .end().addClass('sf-expanded').children('a.sf-accordion-button').add('<i class="fa fa-angle-right" aria-hidden="true"></i><span class="hidetxt">' + options.collapseText + '</span>')
+                 // Hiding any expanded sub-menu of the same level.
+                 .end().siblings('li.sf-expanded').children('ul')
+                 .slideUp('fast', function(){
+@@ -229,7 +231,7 @@
+                   $(this).closest('li').removeClass('sf-expanded').end().addClass('sf-hidden').show();
+                 })
+                 // Assuming Expand\Collapse buttons do exist, resetting captions, in those hidden sub-menus.
+-                .parent().children('a.sf-accordion-button').text(options.expandText);
++                .parent().children('a.sf-accordion-button').add('<i class="fa fa-angle-right" aria-hidden="true"></i><span class="hidetxt">' + options.expandText + '</span>');
+               }
+             }
+           });

@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Alters menu block titles to show the active menu item's parent.
+ */
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_block_view_alter().
+ *
+ * Alters the titles of specified menu blocks to set the title to the parent
+ * menu link title.
+ */
+function menu_block_title_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if (_menu_block_title_needs_modifying($build, $block)) {
+    $build['#pre_render'][] = 'menu_block_title_add_link';
+    $menu_name = $block->getDerivativeId();
+    $build['#cache']['contexts'][] = 'route.menu_active_trails:' . $menu_name;
+  }
+}
+
+/**
+ * Helper function to determine whether a block needs modification.
+ *
+ * @param \Drupal\Core\Block\BlockPluginInterface $block
+ *   The block entity.
+ *
+ * @return bool
+ *   The boolean indicating whether this block needs modifying.
+ */
+function _menu_block_title_needs_modifying($build, BlockPluginInterface $block) {
+  $configuration = $block->getConfiguration();
+  if (isset($configuration['level'])) {
+    $block_config = Block::load($build['#id']);
+    $modify_title = $block_config->getThirdPartySetting('menu_block_title', 'modify_title');
+    return empty($modify_title) ? FALSE : $modify_title;
+  }
+  return FALSE;
+}
+
+/**
+ * Callback for block build pre_render.
+ *
+ * This iterates over all the menu items looking for the active trail. When
+ * found it will add the parent menu item as the block's label.
+ */
+function menu_block_title_add_link(array $build) {
+  $items = [];
+
+  if (!isset($build['#derivative_plugin_id'])) {
+    return $build;
+  }
+
+  $menu_name = $build['#derivative_plugin_id'];
+
+  $menu_tree = \Drupal::menuTree();
+  // Build the typical default set of menu tree parameters.
+  $params = $menu_tree->getCurrentRouteMenuTreeParameters($menu_name);
+  // Load the tree based on this set of parameters.
+  $tree = $menu_tree->load($menu_name, $params);
+  // Build out the renderable array.
+  $menu = $menu_tree->build($tree);
+  // Start building the $items array to check for active menu.
+  $items = array_merge($items, $menu['#items']);
+
+  // Loop through each item checking for active menu trail.
+  foreach ($items as $item) {
+    if ($item['in_active_trail']) {
+      // If this item is in the active menu trail, set the block label to the
+      // menu title. Currently assuming there will only be one.
+      $linked_title = [
+        '#type' => 'link',
+        '#url' => $item['url'],
+        '#title' => $item['title'],
+      ];
+      $build['#configuration']['label'] = $linked_title;
+      continue;
+    }
+  }
+
+  return $build;
+}
+
+/**
+ * Form alteration for the block form to add options.
+ */
+function menu_block_title_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /** @var \Drupal\block\BlockInterface $block */
+  $block = $form_state->getFormObject()->getEntity();
+
+  if (isset($form['settings']['menu_levels'])) {
+    // This will automatically be saved in the third party settings.
+    $form['third_party_settings']['#tree'] = TRUE;
+    $form['third_party_settings']['menu_block_title']['modify_title'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Block title as menu link parent'),
+      '#description' => t('If checked the title of this block will display the parent of the active menu item.'),
+      '#default_value' => $block->getThirdPartySetting('menu_block_title', 'modify_title'),
+    );
+  }
+}

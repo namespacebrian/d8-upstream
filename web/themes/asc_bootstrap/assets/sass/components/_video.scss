@@ -1,0 +1,14 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Video
+// --------------------------------------------------
+
+.p-vid {
+  max-width: 560px;
+  width: 100%;
+  min-height: 315px;
+  height: auto;
+  margin: 20px;
+}

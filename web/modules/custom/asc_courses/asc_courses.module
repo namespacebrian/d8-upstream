@@ -1,0 +1,14 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * implements hook_help()
+ */
+function asc_courses_help($route_name, RouteMatchInterface $route_match) {
+  switch($route_name) {
+    case 'help.page.asc_courses':
+      return t('<h2>ASC Courses Module</h2>');
+  }
+}
+

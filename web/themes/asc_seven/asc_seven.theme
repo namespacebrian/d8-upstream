@@ -1,0 +1,18 @@
+<?php
+use \Drupal\Core\Form\FormStateInterface;
+
+function asc_seven_form_user_cancel_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Don't allow delet users or content when disabling an account
+  unset($form['user_cancel_method']['#options']['user_cancel_block_unpublish']);
+  unset($form['user_cancel_method']['#options']['user_cancel_reassign']);
+  unset($form['user_cancel_method']['#options']['user_cancel_delete']);
+  unset($form['user_cancel_confirm']);
+}
+
+function asc_seven_form_user_multiple_cancel_confirm_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Don't allow delet users or content when disabling an account
+  unset($form['user_cancel_method']['#options']['user_cancel_block_unpublish']);
+  unset($form['user_cancel_method']['#options']['user_cancel_reassign']);
+  unset($form['user_cancel_method']['#options']['user_cancel_delete']);
+  unset($form['user_cancel_confirm']);
+}

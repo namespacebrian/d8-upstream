@@ -1,0 +1,8 @@
+name: Book Settings Changes
+description: 'Validates node and changes Book outline settings'
+type: module
+core_version_requirement: ^8 || ^9
+package: ASC Tech
+
+libraries:
+  - 'book_settings_changes/global-styling'

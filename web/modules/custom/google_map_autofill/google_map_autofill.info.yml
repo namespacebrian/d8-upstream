@@ -1,0 +1,7 @@
+name: Google Map Autofill
+description: 'Automatically fills in the Google Map field with content from the Address field in User'
+type: module
+core_version_requirement: ^8 || ^9
+package: ASC Tech
+dependencies:
+  - drupal:user

@@ -1,0 +1,11 @@
+{
+  "name": "drupal/block_permissions",
+  "type": "drupal-module",
+  "description": "Adds specific permissions for administering blocks.",
+  "homepage": "https://www.drupal.org/project/block_permissions",
+  "support": {
+      "issues": "https://www.drupal.org/project/issues/block_permissions?version=8.x",
+      "source": "http://cgit.drupalcode.org/block_permissions"
+  },
+  "license": "GPL-2.0+"
+}

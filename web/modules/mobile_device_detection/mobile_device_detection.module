@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Controls the visual building blocks, views a page is constructed with.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_help().
+ */
+function mobile_device_detection_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.mobile_device_detection':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('"Mobile device detection" module can detect any mobile device. You can use it via service or "Views". This module integrate with "Views" and you can easily to switch "Views display" for different devices.') . '</p>';
+      $output .= '<p>' . t('For more information, see the <a href="https://www.drupal.org/project/mobile_device_detection">Mobile device detection</a>.') . '</p>';
+      $output .= '<h3>' . t('Usage') . '</h3>';
+      $output .= '<p>' . t('Initialization:') . '</p>';
+      $output .= '<p>' . t('$detection_service = \Drupal::service("mobile_device_detection.object");') . '</p>';
+      $output .= '<hr>';
+      $output .= '<p>' . t('Implementation:') . '</p>';
+      $output .= '<p>' . t('if($detection_service->isMobile()) { $detection_service->getObject(); }') . '</p>';
+      $output .= '<p>' . t('if($detection_service->isTablet()) { $detection_service->getObject(); }') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function mobile_device_detection_views_post_execute(ViewExecutable $view) {
+  $display = $view->getDisplay();
+  $extenders = $display->getExtenders();
+
+  if (!isset($extenders['mobile_device_detection'])) {
+    return;
+  }
+
+  if (!$extenders['mobile_device_detection']->getDevices()) {
+    return;
+  }
+
+  $devices = array_filter($extenders['mobile_device_detection']->getDevices());
+
+  if (!empty($devices)) {
+    \Drupal::service('page_cache_kill_switch')->trigger();
+    $view->element['#cache']['contexts'] = ['cache_context.session'];
+    $view->element['#cache']['max-age'] = 0;
+    $entity = \Drupal::service('mobile_device_detection.object');
+    $view->build_info['fail'] = TRUE;
+
+    foreach ($devices as $key => $value) {
+      if ($key != 'desktop') {
+        $func = 'is' . ucfirst($value);
+
+        if (is_callable([$entity, $func]) && $entity->$func()) {
+          $view->build_info['fail'] = FALSE;
+        }
+      }
+      else {
+        if (!$entity->isMobile() && !$entity->isTablet()) {
+          $view->build_info['fail'] = FALSE;
+        }
+      }
+    }
+  }
+}

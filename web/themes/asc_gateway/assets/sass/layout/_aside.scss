@@ -1,0 +1,61 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Aside
+// --------------------------------------------------
+
+.path-frontpage aside {
+    margin-top: 30px;
+}
+
+aside {
+  /*margin-top: 30px;*/
+
+  img {
+    width: $full;
+    padding: 20px;
+  }
+
+  .col-sm-3 {
+    padding: 0 40px;
+    background: #ccc;
+    min-height: $full;
+  }
+
+
+  .menu .expanded ul {
+    margin-left: 25px;
+  }
+
+  @media (max-width: 768px) {
+    float: left;
+  }
+}
+
+.region-sidebar-second {
+  background-color: $white;
+  border: none;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+
+  h2 {
+    background: #bed2d3;
+    color: $gray-6;
+    font-size: 18px;
+    padding: 10px 15px;
+    margin: 0 !important;
+  }
+
+  a {
+    color: $gray-6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  nav {
+    margin-bottom: 30px;
+  }
+}
+

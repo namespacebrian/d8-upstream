@@ -1,0 +1,36 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Basic Page
+// --------------------------------------------------
+
+
+article.page {
+  margin-bottom: 44px;
+}
+
+//## Carousel.
+
+.page-node-type-page .carousel {
+    height: auto;
+    overflow: hidden;
+
+    .field--name-field-media-image {
+      padding-bottom: 0;
+
+      .img-responsive {
+        width: 100%;
+      }
+    }
+
+    .field--name-field-image-caption {
+      background: $black-base;
+      color: $white;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 1030px) {
+      height: auto;
+    }
+}

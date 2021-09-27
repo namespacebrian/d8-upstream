@@ -1,0 +1,14 @@
+asc_courses.settings:
+  type: config_object
+  label: 'ASC Courses Settings'
+  mapping:
+    asc_courses:
+      type: mapping
+      mapping:
+        consumer_key:
+          type: text
+          label: 'Consumer Key'
+        consumer_secret:
+          type: text
+          label: 'Consumer Secret'
+

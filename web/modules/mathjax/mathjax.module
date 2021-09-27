@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * MathJax module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function mathjax_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'mathjax.settings':
+      return t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href=":url">MathJax website</a> for more information.', [':url' => 'http://www.mathjax.org/']);
+
+    case 'help.page.mathjax':
+      return '<p>' . t('MathJax allows you to include mathematics in your web pages, either using TeX and LaTeX notation, or as MathML, and you can even use both in the same document. Go to the <a href=":url">MathJax website</a> for more information.', [':url' => 'http://www.mathjax.org/']) . '</p>';
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function mathjax_page_attachments(&$page) {
+  $config = Drupal::config('mathjax.settings');
+
+  // Exit if MathJax is not allowed on admin pages and we are on an admin page.
+  if (!$config->get('enable_for_admin') && \Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
+  $config_type = $config->get('config_type');
+  if ($config_type == 1) {
+    $page['#attached']['drupalSettings']['mathjax'] = [
+      'config_type' => $config_type,
+      'config' => json_decode($config->get('config_string')),
+    ];
+    $page['#attached']['library'][] = 'mathjax/config';
+    $page['#attached']['library'][] = 'mathjax/source';
+    $page['#attached']['library'][] = 'mathjax/setup';
+  }
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function mathjax_library_info_build() {
+  $config = Drupal::config('mathjax.settings');
+  $libraries = [];
+  $libraries['source'] = [
+    'dependencies' => [
+      'mathjax/config',
+    ],
+    'remote' => 'https://www.mathjax.org/',
+    'license' => [
+      'name' => 'Apache',
+      'url' => 'http://cdn.mathjax.org/mathjax/2.0-latest/LICENSE',
+      'gpl-compatible' => TRUE,
+    ],
+  ];
+  if ($config->get('use_cdn') == FALSE) {
+    $libraries['source']['js'] = [
+      \Drupal::request()->getBaseUrl() . '/libraries/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML' => [
+        'type' => 'external',
+        'minified' => TRUE,
+      ],
+    ];
+  }
+  else {
+    $libraries['source']['js'] = [
+      $config->get('cdn_url') => [
+        'type' => 'external',
+        'minified' => TRUE,
+      ],
+    ];
+  }
+  return $libraries;
+}

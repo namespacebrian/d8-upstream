@@ -1,0 +1,5 @@
+services:
+  asc_courses.commands:
+    class: \Drupal\asc_courses\Commands\AscCoursesCommands
+    tags:
+      - { name: drush.command }

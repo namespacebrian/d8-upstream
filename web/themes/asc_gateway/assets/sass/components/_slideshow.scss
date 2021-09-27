@@ -1,0 +1,22 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Slideshow
+// --------------------------------------------------
+
+#carousel {
+  .glyphicon {
+    text-decoration: none !important;
+  }
+}
+
+.carousel-control {
+    color: $white !important;
+}
+
+
+a.carousel-control:hover {
+      border-bottom: none;
+      background-color: transparent;
+    }

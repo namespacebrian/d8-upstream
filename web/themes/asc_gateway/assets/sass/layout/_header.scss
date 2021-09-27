@@ -1,0 +1,47 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Header
+// --------------------------------------------------
+
+.page-header {
+  margin: 0 0 20px;
+  border-bottom: none !important;
+  color: $gray-6;
+}
+
+#header-logos {
+  padding: 30px 15px;
+  width: 100%;
+  float: left;
+
+}
+
+.logo2 {
+  margin-top: 5px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+
+// --------------------------------------------------
+
+//## Search Form.
+
+.search-block-form {
+  width: 20%;
+  float: right;
+}
+
+
+// --------------------------------------------------
+
+//## Breadcrumbs.
+
+.breadcrumb {
+  background: $white;
+  margin-top: 47px;
+}

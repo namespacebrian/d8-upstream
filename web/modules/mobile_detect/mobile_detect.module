@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Contains mobile_detect.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\Xss;
+
+/**
+ * Implements hook_help().
+ */
+function mobile_detect_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the mobile_detect module.
+    case 'help.page.mobile_detect':
+      return _mobile_detect_get_readme();
+  }
+}
+
+/**
+ * Helper for mobile_detect readme.
+ */
+function _mobile_detect_get_readme() {
+  $readme = file_get_contents(dirname(__FILE__) . '/README.txt');
+  // Get the module handler service.
+  $module_handler = \Drupal::moduleHandler();
+  if ($module_handler->moduleExists('markdown')) {
+    $filters = $module_handler->invoke('markdown', 'filter_info');
+    $info = $filters['filter_markdown'];
+
+    if (function_exists($info['process callback'])) {
+      $function = $info['process callback'];
+      $output = Xss::filterAdmin($function($readme, NULL));
+    }
+    else {
+      $output = '<pre>' . Html::escape($readme) . '</pre>';
+    }
+  }
+  else {
+    $output = '<pre>' . Html::escape($readme) . '</pre>';
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mobile_detect_theme() {
+  $theme = [];
+
+  return $theme;
+}
+
+/**
+ * {@inheritdoc}
+ */
+function mobile_detect_preprocess_html(&$variables) {
+  if (\Drupal::config('mobile_detect.settings')->get('add_cache_context')) {
+    $variables['html']['#cache']['contexts'][] = 'is_mobile';
+    $variables['#cache']['contexts'][] = 'is_mobile';
+  }
+}

@@ -1,0 +1,122 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Research DB
+// --------------------------------------------------
+
+/*.views-field-field-rdb-url svg, .field--name-field-rdb-url svg {
+  margin-left: 8px;
+}*/
+
+.funding-opportunity {
+  .field {
+    padding: 15px 0;
+  }
+
+  .field:first-child {
+    padding: 0 0 15px;
+  }
+
+}
+
+.view-research-database, .view-research-database-mobile {
+  .views-label {
+    font-weight: 600;
+  }
+  .views-row {
+    display: flex;
+
+    .views-col {
+      width: 40% !important;
+      background: #F9F9F9;
+      border: #DDD solid 1px;
+      margin: 10px 15px;
+      padding: 20px;
+      flex: 1;
+
+      .views-field {
+        margin: 20px 0 0;
+      }
+    }
+
+    .col-1 {
+      margin: 10px 15px 10px 0;
+    }
+
+  }
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 10px;
+  }
+
+  .select-wrapper:after {
+    color: $gray;
+    font-size: 12px;
+  }
+
+  .form-control {
+    border-radius: 8px;
+  }
+
+  .form-type-textfield {
+    margin: 10px 10px 10px 0;
+
+    .form-control {
+      width: 397px;
+      border-radius: 0;
+    }
+  }
+
+  .form-actions {
+    margin: 10px 0;
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+  }
+
+  .rdb-filter-heading {
+    color: #225D62;
+    margin: 5px 0;
+  }
+
+  .rdb-search-heading {
+    margin-top: 50px;
+    margin-bottom: -5px;
+  }
+
+}
+
+
+.view-research-database-mobile {
+  .bef-exposed-form .form--inline > .form-item {
+    float: none;
+  }
+  .form-item {
+    background: $white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+
+  .form-type-textfield {
+    width: 100%;
+    background: transparent;
+    padding: 0;
+
+    label {
+      display: none;
+    }
+
+    .form-control {
+      width: 100%;
+    }
+  }
+
+  .form-type-checkbox {
+    padding: 0;
+  }
+}

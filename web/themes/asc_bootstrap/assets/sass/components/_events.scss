@@ -1,0 +1,161 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Events
+// --------------------------------------------------
+
+//## Events grid.
+
+.view-events {
+  .row {
+    display: flex;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+  }
+
+  .news-row {
+    display: flex;
+    color: $gray-6;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+
+    .inner-news-grid {
+      border: #979797 solid 1px;
+      flex: 1;
+      background: $white;
+      overflow: hidden;
+
+      @media (max-width: 768px) {
+        flex: none;
+        margin-bottom: 20px
+      }
+    }
+
+    .views-field-field-evt-date-range {
+      padding: 10px;
+      background: #841F5D;
+      color: $white;
+      text-transform: uppercase;
+    }
+
+    .views-field-title {
+      padding: 10px 10px 3px;
+      font-size: 18px;
+      font-weight: 700;
+
+      a {
+        color: $gray-6;
+      }
+    }
+
+    .views-field-field-evt-location-2 {
+      padding: 10px;
+      color: #26686D;
+      font-weight: 600;
+      background: #F5F5F5;
+    }
+
+
+  }
+
+}
+
+
+// --------------------------------------------------
+
+//## Event.
+
+article.event {
+  margin-bottom: 16px;
+
+  .carousel {
+    float: left;
+  }
+}
+
+.news-cont {
+  padding-left: 0;
+
+  .field--name-body {
+    margin: 20px 0 40px;
+    float: left;
+    width: 100%;
+  }
+}
+
+.news-date {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: $font-size-h6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.news-title {
+  text-transform: capitalize;
+}
+
+.evt-header {
+  background: #EFEFEF;
+  padding: 15px 5px 10px;
+  width: 100%;
+  float: left;
+  margin-bottom: 30px;
+}
+
+.evt-icon {
+  float: left;
+  margin-right: 10px;
+}
+
+.evt-cal {
+
+  .hidden {
+    display: none;
+  }
+
+  span {
+    float: right;
+    padding: 20px 0;
+
+    @media (max-width: 768px) {
+      float: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}
+
+
+// --------------------------------------------------
+
+//## Hides core h1 title in lieu of News Stories built-in h1 title.
+
+.page-node-type-news-story .page-header {
+  display: none;
+}
+
+
+// --------------------------------------------------
+
+//## Events taxonomy.
+
+.taxonomy-events-heading {
+  float: left;
+  width: 100%;
+  padding-top: 15px;
+
+  h2 {
+    line-height: 0;
+    font-size: 18px;
+  }
+}

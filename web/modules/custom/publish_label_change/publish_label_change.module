@@ -1,0 +1,4 @@
+<?php
+function publish_label_change_form_alter(&$form, &$form_state, $form_id) {
+ $form['status']['widget']['value']['#title'] = t('Page Published');
+}

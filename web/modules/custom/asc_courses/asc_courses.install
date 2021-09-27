@@ -1,0 +1,447 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for ASC Courses module
+ */
+
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
+use Drupal\user\RoleInterface;
+use \Drupal\Core\Database\Database;
+
+
+function asc_courses_update_8001(&$sandbox) {
+  $content_type = 'course';
+
+  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager */
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $node_storage */
+  $node_storage = $entity_type_manager->getStorage('node');
+
+  if (!isset($sandbox['max'])) {
+    $sandbox['current'] = 0;
+    $sandbox['count'] = 0;
+    $sandbox['total'] = $node_storage->getQuery()
+      ->accessCheck(FALSE)
+      ->condition('type', $content_type)
+      ->count()->execute();
+  }
+
+  $nids = $node_storage->getQuery()
+    ->accessCheck(FALSE)
+    ->range(0, 50)
+    ->condition('type', $content_type)
+    ->condition('nid', $sandbox['current'], '>')
+    ->execute();
+
+  $nodes = $node_storage->loadMultiple($nids);
+
+  /** @var \Drupal\node\NodeInterface $node */
+  foreach ($nodes as $node) {
+
+    $node_body = $node->body->value;
+    $node->field_course_description->value = $node_body;
+
+    $node->setNewRevision();
+    $node->save();
+
+    $sandbox['current'] = $node->id();
+    $sandbox['count']++;
+  }
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : $sandbox['current'] / $sandbox['max'];
+}
+
+/**
+ * Schema changes supporting pre-processing of API data
+ */
+function asc_courses_update_8002(&$sandbox) {
+  $schema = Database::getConnection()->schema();
+  $tables = asc_courses_schema();
+
+
+  // Rename 'asc_course_data' table to 'asc_courses_api_data'
+  $schema->renameTable('asc_course_data', 'asc_courses_api_data');
+
+  // Rename 'id' field to 'asc_courses_api_data_id'
+  $field_asc_courses_api_id = $tables['asc_courses_api_data']['fields']['asc_courses_api_data_id'];
+  $new_key = ['primary key' => ['asc_courses_api_data_id']];
+
+  $schema->changeField('asc_courses_api_data', 'id', 'asc_courses_api_data_id', $field_asc_courses_api_id);
+
+  // Add 'environment' field
+  $field_environment = $tables['asc_courses_api_data']['fields']['environment'];
+  $config = \Drupal::service('config.factory')->getEditable('asc_courses.settings');
+  $api_environment = $config->get('asc_courses.eip_environment');
+  if(empty($api_environment)) {
+    $api_environment = 'qa';
+    $config->set('asc_courses.eip_environment', $api_environment);
+    $config->save();
+  }
+  $field_environment['initial'] = $api_environment;
+  $schema->addField('asc_courses_api_data', 'environment', $field_environment);
+
+  // Add 'request_type' field
+  $field_request_type = $tables['asc_courses_api_data']['fields']['request_type'];
+  $field_request_type['initial'] = 'crseinfo';
+  $schema->addField('asc_courses_api_data', 'request_type', $field_request_type);
+
+  // Add 'processed' field
+  $field_processed = $tables['asc_courses_api_data']['fields']['processed'];
+  $field_processed['initial'] = FALSE;
+  $schema->addField('asc_courses_api_data', 'processed', $field_processed);
+
+
+  // update remaining field definitions
+  unset($tables['asc_courses_api_data']['fields']['asc_courses_api_data_id']);
+  unset($tables['asc_courses_api_data']['fields']['environment']);
+  unset($tables['asc_courses_api_data']['fields']['request_type']);
+  unset($tables['asc_courses_api_data']['fields']['processed']);
+  foreach($tables['asc_courses_api_data']['fields'] as $field_name => $field_spec) {
+    $schema->changeField('asc_courses_api_data', $field_name, $field_name, $field_spec);
+  }
+
+  $schema->createTable('asc_courses_processed', $tables['asc_courses_processed']);
+}
+
+/**
+ * Fix "extra commas" in individual courses selections
+ */
+function asc_courses_update_8003(&$sandbox) {
+  $config = \Drupal::service('config.factory')->getEditable('asc_courses.settings');
+  $individual_courses = trim($config->get('asc_courses.individual_courses'));
+
+  if(substr($individual_courses, 0, 2) == ', ') {
+    $individual_courses = substr($individual_courses, 2);
+
+    $config->set('asc_courses.individual_courses', $individual_courses);
+    $config->save();
+
+    $msg = "Removed leading comma from individual courses selections setting";
+    \Drupal::logger('asc_courses')->notice($msg);
+  }
+}
+
+/**
+ * Implements hook_schema().
+ *
+ * This defines the database table which will hold the example item info.
+ */
+function asc_courses_schema() {
+  $schema['asc_courses_api_data'] = [
+    'description' => 'Stores courses json data.',
+    'fields' => [
+      'asc_courses_api_data_id' => [
+        'description' => 'The primary identifier for each item',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'environment' => [
+        'description' => 'API environment: qa or prod',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+      ],
+      'request_type' => [
+        'description' => 'Type of API request the data is from, e.g. dorg-courses or dorg-list',
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+      ],
+      'processed' => [
+        'description' => 'Whether this data has been processed yet by subsequent php',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+      ],
+      'date' => [
+        'description' => 'The date this data was fetched',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'dept_org' => [
+        'description' => 'D_ORG number used in request',
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => TRUE,
+      ],
+      'raw_json' => [
+        'description' => 'Verbatim JSON blob from EIP API',
+        'type' => 'text',
+        'length' => 16777215,
+        'not null' => FALSE,
+      ],
+    //   'name' => [
+    //     'description' => 'A name for this item',
+    //     'type' => 'varchar',
+    //     'length' => 32,
+    //     'not null' => TRUE,
+    //     'default' => '',
+    //   ],
+    //   'description' => [
+    //     'description' => 'A description for this item',
+    //     'type' => 'varchar',
+    //     'length' => 255,
+    //     'not null' => TRUE,
+    //     'default' => '',
+    //   ],
+    //   'itemgroup' => [
+    //     'description' => 'The group this item belongs to',
+    //     'type' => 'varchar',
+    //     'length' => 32,
+    //     'not null' => TRUE,
+    //     'default' => '',
+    //   ],
+    //   'weight' => [
+    //     'description' => 'The sortable weight for this item',
+    //     'type' => 'int',
+    //     'length' => 11,
+    //     'not null' => TRUE,
+    //     'default' => 0,
+    //   ],
+    //   'pid' => [
+    //     'description' => 'The primary id of the parent for this item',
+    //     'type' => 'int',
+    //     'length' => 11,
+    //     'unsigned' => TRUE,
+    //     'not null' => TRUE,
+    //     'default' => 0,
+    //   ],
+    ],
+    'primary key' => ['asc_courses_api_data_id'],
+  ];
+
+  /*
+    $schema['asc_courses_dorgs'] = [
+      'description' => 'Stores D-org list data',
+      'fields' => [
+        'asc_courses_dorgs_id' => [
+          'description' => 'The primary identifier for each item',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ],
+        'date' => [
+          'description' => 'The date this data was fetched',
+          'type' => 'int',
+          'length' => 11,
+          'not null' => TRUE,
+        ],
+        'raw_json' => [
+          'description' => 'Verbatim JSON blob from EIP API',
+          'type' => 'text',
+          'length' => 16777215,
+          'not null' => TRUE,
+        ],
+      ],
+      'primary key' => ['asc_courses_dorgs_id'],
+    ];
+  */
+
+  $schema['asc_courses_processed'] = [
+    'fields' => [
+      'asc_courses_processed_id' => [
+        'description' => 'The primary identifier for each item',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'updated' => [
+        'description' => 'The date this data was fetched',
+        'type' => 'int',
+        'length' => 11,
+        'not null' => TRUE,
+      ],
+      'asc_courses_api_data_id' => [
+        'description' => 'The date this data was fetched',
+        'type' => 'int',
+        'length' => 11,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'dept_org' => [
+        'description' => 'D_ORG number used in request',
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => TRUE,
+      ],
+      'crse_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'strm' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'effdt' => [
+        'type' => 'varchar',
+        'length' => 16,
+        'not null' => FALSE,
+      ],
+      'eff_status' => [
+        'type' => 'char',
+        'length' => 1,
+        'not null' => FALSE,
+      ],
+      'descr' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+      'descrlong' => [
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+      'crse_attribute' => [
+        'type' => 'text',
+        'not null' => FALSE,
+      ],
+      'equiv_crse_id' => [
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => FALSE,
+      ],
+      'allow_mult_enroll' => [
+        'type' => 'char',
+        'length' => 1,
+        'not null' => FALSE,
+      ],
+      'units_minimum' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'units_maximum' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'acad_prog' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'crse_repeatable' => [
+        'type' => 'char',
+        'length' => 1,
+        'not null' => FALSE,
+      ],
+      'units_repeat_limit' => [
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'crse_repeat_limit' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'grading_basis' => [
+        'type' => 'varchar',
+        'length' => 4,
+        'not null' => FALSE,
+      ],
+      'ssr_component' => [
+        'type' => 'varchar',
+        'length' => 4,
+        'not null' => FALSE,
+      ],
+      'course_title_long' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+      'crse_count' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'component_primary' => [
+        'type' => 'varchar',
+        'length' => 4,
+        'not null' => FALSE,
+      ],
+      'crse_offer_nbr' => [
+        'type' => 'int',
+				'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+      ],
+      'acad_group' => [
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => FALSE,
+      ],
+      'subject' => [
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => FALSE,
+      ],
+      'catalog_nbr' => [
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => FALSE,
+      ],
+      'campus' => [
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => FALSE,
+      ],
+      'acad_org' => [
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => FALSE,
+      ],
+      'acad_career' => [
+        'type' => 'varchar',
+        'length' => 8,
+        'not null' => FALSE,
+      ],
+      'cip_code' => [
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['asc_courses_processed_id'],
+  ];
+
+  return $schema;
+}
+
+// /**
+//  * Implements hook_install().
+//  *
+//  * Populates newly created database table with fixtures for all module's
+//  * examples. This hook executed after hook_schema() tables are created by core.
+//  *
+//  * @see \Drupal\Core\Extension\ModuleInstaller::install()
+//  *
+//  * @ingroup tabledrag_example
+//  */
+// function tabledrag_example_install() {
+//   /** @var \Drupal\Core\Database\Connection $connection */
+//   $connection = \Drupal::database();
+//   $rows = Fixtures::getSampleItems();
+//   foreach ($rows as $row) {
+//     $connection->insert('tabledrag_example')->fields($row)->execute();
+//   }
+// }
+// /**
+//  * implements hook_install()
+//  */
+// function asc_courses_install() {
+// }
+

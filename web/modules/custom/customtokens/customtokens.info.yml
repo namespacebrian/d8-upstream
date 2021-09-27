@@ -1,0 +1,5 @@
+name: Custom Tokens
+description: 'Creates custom tokens'
+type: module
+core_version_requirement: ^8 || ^9
+package: ASC Tech

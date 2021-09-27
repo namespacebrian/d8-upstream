@@ -1,0 +1,7 @@
+{
+    "mysql_host": "dbserver.dev.8a8d6f28-45db-488e-949d-e73d0c94fe48.drush.in",
+    "mysql_port": 11725,
+    "mysql_username": "pantheon",
+    "mysql_password": "c0cd804927774feb8b3ac05c85548118",
+    "mysql_database": "pantheon"
+}

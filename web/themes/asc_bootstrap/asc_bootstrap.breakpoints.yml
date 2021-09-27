@@ -1,0 +1,24 @@
+asc_bootstrap.mobile:
+  label: mobile
+  mediaQuery: 'all and (max-width: 768px)'
+  weight: 0
+  multipliers:
+    - 1x
+asc_bootstrap.tablet:
+  label: tablet
+  mediaQuery: 'all and (min-width: 769px) and (max-width: 991px)'
+  weight: 1
+  multipliers:
+    - 1x
+asc_bootstrap.desktop:
+  label: desktop
+  mediaQuery: 'all and (min-width: 992px) and (max-width: 1199px)'
+  weight: 2
+  multipliers:
+    - 1x
+asc_bootstrap.hd:
+  label: hd
+  mediaQuery: 'all and (min-width: 1200px)'
+  weight: 3
+  multipliers:
+    - 1x

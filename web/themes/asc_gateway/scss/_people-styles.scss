@@ -1,0 +1,21 @@
+#block-views-block-people-profile-block-1 .views-field.views-field-user-picture a img {
+    border-radius: 10%;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+#block-views-block-people-profile-block-1 .more-link.form-group {
+  margin: 15px; 15px; 15px; 15px; 
+  float: right;
+}
+
+#block-views-block-people-profile-block-1 .views-field.views-field-field-phone {
+  font-size: smaller;
+}
+
+#block-views-block-people-profile-block-1 .views-field.views-field-mail a {
+  font-size: smaller;
+}

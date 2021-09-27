@@ -1,0 +1,13 @@
+diff --git a/core/modules/user/src/UserAccessControlHandler.php b/core/modules/user/src/UserAccessControlHandler.php
+index 19fe6b692c..eff48c7c5a 100644
+--- a/core/modules/user/src/UserAccessControlHandler.php
++++ b/core/modules/user/src/UserAccessControlHandler.php
+@@ -116,7 +116,7 @@ protected function checkFieldAccess($operation, FieldDefinitionInterface $field_
+         // Allow view access to own mail address and other personalization
+         // settings.
+         if ($operation == 'view') {
+-          return $is_own_account ? AccessResult::allowed()->cachePerUser() : AccessResult::neutral();
++          return $is_own_account || $account->hasPermission('access user profiles') ? AccessResult::allowed()->cachePerUser() : AccessResult::neutral();
+         }
+         // Anyone that can edit the user can also edit this field.
+         return AccessResult::allowed()->cachePerPermissions();

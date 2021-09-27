@@ -1,0 +1,13 @@
+<?php
+function book_settings_changes_form_alter(&$form, &$form_state, $form_id) {
+  $form['book']['#title'] = t('Newsletter outline');
+  $form['book']['bid']['#title'] = t('Newsletter');
+  $form['book']['bid']['#description'] = t('Your page will be a part of the selected newsletter.');
+  $form['book']['parent_depth_limit']['#value'] = 2;
+  //$form['book']['pid']['#prefix'] = '<div id="edit-book-plid-wrapper"><em>' . t('No newsletter selected.') . '</em></div>';
+  $form['book']['bid']['#options']['new'] = t('- Create a new newsletter -');
+}
+
+function book_settings_changes_page_attachments(array &$page) {
+  $page['#attached']['library'][] = 'book_settings_changes/custom_css';
+}

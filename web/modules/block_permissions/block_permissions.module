@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Block permissions module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function block_permissions_form_block_admin_display_form_alter(&$form, FormStateInterface $form_state) {
+
+  // Iterate over the blocks in the overview form and disable them if the user
+  // does not have permission to administer the blocks for the provider of the
+  // block.
+  $block_elements = Element::children($form['blocks']);
+  foreach ($block_elements as $key) {
+    if (substr($key, 0, 6) != 'region' && $block = Block::load($key)) {
+      $settings = $block->get('settings');
+      // Validate permissions, if the user doesn't have them: disable the
+      // region.
+      if (!\Drupal::currentUser()->hasPermission('administer blocks provided by ' . $settings['provider'])) {
+        // Convert weight to a hidden field.
+        $form['blocks'][$key]['weight']['#type'] = 'hidden';
+
+        // Restrict access to region-theme and operations.
+        $form['blocks'][$key]['region-theme']['#access'] = FALSE;
+        $form['blocks'][$key]['operations']['#access'] = FALSE;
+
+        // Remove the draggable class and replace it with undraggable.
+        $class_key = array_search('draggable', $form['blocks'][$key]['#attributes']['class']);
+        if ($class_key !== FALSE) {
+          $form['blocks'][$key]['#attributes']['class'][$class_key] = 'undraggable';
+        }
+      }
+    }
+  }
+}

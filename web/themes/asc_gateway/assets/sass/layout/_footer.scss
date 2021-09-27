@@ -1,0 +1,49 @@
+@import "helpers/mixins";
+@import "helpers/variables";
+@import "helpers/functions";
+
+footer {
+  color: $white;
+  background: url('../images/buckeye-bkgd2.svg') $red no-repeat center;
+
+    .cont-cont {
+      text-align: center;
+
+      p {
+        font-style: italic;
+        font-size: 20px;
+      }
+
+      .cont-btn {
+        padding: 10px;
+
+        a {
+          padding: 10px;
+          border: solid $white 1px;
+          @include border-radius(5px);
+          color: $white;
+          text-transform: uppercase;
+        }
+      }
+  }
+}
+
+ #subfoot {
+    background: $deep-grey;
+    float: left;
+    width: 100%;
+    color: $white;
+    padding: 20px 0;
+
+    a {
+      color: $white;
+    }
+
+    .sf-col2 {
+      text-align: right;
+
+      ul {
+        list-style-type: none;
+      }
+    }
+  }

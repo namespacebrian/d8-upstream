@@ -1,0 +1,10 @@
+name: Mobile Detect Twig Extensions
+type: module
+description: This module declares a service for MobileDetect.php library, and adds a Twig extensions handler.
+core_version_requirement: ^8 || ^9
+package: Twig
+
+# Information added by Drupal.org packaging script on 2020-09-07
+version: '8.x-1.5'
+project: 'mobile_detect_twig_extensions'
+datestamp: 1599481463

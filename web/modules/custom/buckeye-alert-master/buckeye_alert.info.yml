@@ -1,0 +1,7 @@
+name: 'Buckeye Alert'
+type: module
+description: 'Drupal 8 Module for displaying Buckeye Alert messages at the top of your webpage.'
+core_version_requirement: ^8 || ^9
+package: 'Buckeye Alert'
+dependencies:
+  - 'drupal:datetime'

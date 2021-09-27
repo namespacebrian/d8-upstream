@@ -1,0 +1,23 @@
+{
+  "name": "drupal/mobile_detect_twig_extensions",
+  "description": "This module uses the Mobile_Detect library and add a few twig extensions to work with.",
+  "type": "drupal-module",
+  "homepage": "https://drupal.org/project/mobile_detect_twig_extensions",
+  "authors": [
+    {
+      "name": "Antonio Javier Martinez Muro (nonom)",
+      "homepage": "https://www.drupal.org/u/nonom",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/mobile_detect_twig_extensions",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "https://cgit.drupalcode.org/mobile_detect_twig_extensions"
+  },
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": {
+    "mobiledetect/mobiledetectlib": "^2.8"
+  }
+}

@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Theme override for unformatted summary links.
+ *
+ * Available variables:
+ * - rows: The rows contained in this view.
+ *   - url: The URL to this row's content.
+ *   - count: The number of items this summary item represents.
+ *   - separator: A separator between each row.
+ *   - attributes: HTML attributes for a row.
+ *   - active: A flag indicating whether the row is active.
+ * - options: Flags indicating how each row should be displayed. This contains:
+ *   - count: A flag indicating whether the row's 'count' should be displayed.
+ *   - inline: A flag indicating whether the item should be wrapped in an inline
+ *     or block level HTML element.
+ *
+ * @see template_preprocess_views_view_summary_unformatted()
+ */
+#}
+
+{% set counter = 0 %}
+{% set max = rows|length %}
+
+<span class="upper">
+  <a href="/people">All</a>
+</span>
+
+{% for letter in 'a'..'z' %}
+  {{ options.inline ? '<span' : '<div' }} >
+
+  {% if rows.separator %}
+    {{ rows.separator }}
+  {% endif %}
+
+  {% if (counter < max and rows[counter].link == letter|upper) %}
+    <a href="{{ rows[counter].url }}"{{ rows.attributes.addClass(rows.active ? 'is-active')|without('href') }}>{{ rows[counter].link }}</a>
+    {% set counter = counter+1 %}
+  {% else %}
+    {{ letter|upper }}
+  {% endif %}
+  {% if options.count %}
+    ({{ rows.count }})
+  {% endif %}
+
+  {{ options.inline ? '</span>' : '</div>' }}
+
+{% endfor %}

@@ -1,0 +1,267 @@
+{#
+/**
+ * @file
+ * Theme override to display an event node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: Themed creation date field.
+ * - author_name: Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+
+{%
+  set classes = [
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {% if not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+{#
+  {% if display_submitted %}
+    <footer>
+      {{ author_picture }}
+      <div{{ author_attributes.addClass('author') }}>
+        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+        {{ metadata }}
+      </div>
+    </footer>
+  {% endif %}
+#}
+
+  <div class="col-sm-4 col-sm-push-8 news-img">
+    {{ content.field_evt_image }}
+  </div>
+  <div{{ content_attributes.addClass('content') }}>
+    <div class="col-sm-8 col-sm-pull-4 news-cont">
+      <div class="evt-header">
+
+{# BEGIN for loop to display all event dates #}
+{% for dates in node.field_evt_date_range %}
+
+        <div class="col-xs-12 col-md-8">
+
+
+          {# get daylight savings time setting for event date range field #}
+          {% set daylight_savings = dates.value|date('I') %}
+
+          {# get start and end dates #}
+          {% if daylight_savings == '1' %}
+            {% set start_date = dates.value|date_modify("-4 hours")|date('F j') %}
+            {% set end_date = dates.end_value|date_modify("-4 hours")|date('F j') %}
+            {% set start_date_cal = dates.value|date_modify("-4 hours")|date('Y-m-d H:i:s') %}
+            {% set end_date_cal = dates.end_value|date_modify("-4 hours")|date('Y-m-d H:i:s') %}
+          {% else %}
+            {% set start_date = dates.value|date_modify("-5 hours")|date('F j') %}
+            {% set end_date = dates.end_value|date_modify("-5 hours")|date('F j') %}
+            {% set start_date_cal = dates.value|date_modify("-5 hours")|date('Y-m-d H:i:s') %}
+            {% set end_date_cal = dates.end_value|date_modify("-5 hours")|date('Y-m-d H:i:s') %}
+          {% endif %}
+
+            {# place DATE value #}
+            <i class="fa fa-calendar evt-icon"></i>
+
+            {# check if daylight savings time, modify to correct time, place DATE value #}
+            {% if daylight_savings == '1' %}
+                {# if same day #}
+                {% if start_date == end_date %}
+                  <div class="field--item evt-date">{{ dates.value|date_modify("-4 hours")|date('F j, Y') }}</div>
+                {% else %}
+                {# if multiple days #}
+                  <div class="field--item evt-date">{{ dates.value|date_modify("-4 hours")|date('F j') ~ ' - ' ~ dates.end_value|date_modify("-4 hours")|date('F j, Y') }}</div>
+                {% endif %}
+            {% else %} {# not daylight savings #}
+
+              {# get end year for event date range field #}
+              {% set end_year = dates.end_value|date_modify("-5 hours")|date('Y') %}
+
+                {# check if end date is past new year#}
+                {% if end_year > dates.value|date_modify("-5 hours")|date('Y') %}
+
+                  {# if it is add year to first date #}
+                  {# if same day #}
+
+                  {% if start_date == end_date %}
+                    <div class="field--item evt-date">{{ dates.value|date_modify("-5 hours")|date('F j, Y') }}</div>
+                  {% else %}
+                  {# if multiple days #}
+                    <div class="field--item evt-date">{{ dates.value|date_modify("-5 hours")|date('F j, Y') ~ ' - ' ~ dates.end_value|date_modify("-5 hours")|date('F j, Y') }}</div>
+                  {% endif %}
+
+                {% else %}{# end date is NOT past new year#}
+                  {# if same day #}
+                  {% if start_date == end_date %}
+                    <div class="field--item evt-date">{{ dates.value|date_modify("-5 hours")|date('F j, Y') }}</div>
+                  {% else %}
+                  {# if multiple days #}
+                    <div class="field--item evt-date">{{ dates.value|date_modify("-5 hours")|date('F j') ~ ' - ' ~ dates.end_value|date_modify("-5 hours")|date('F j, Y') }}</div>
+                  {% endif %}
+                {% endif %}
+            {% endif %}
+
+            {# place TIME value #}
+            <i class="fa fa-clock-o evt-icon"></i>
+            {# check if all day is selected #}
+            {% if start_date_cal == end_date_cal %}
+              <div class="field--item evt-time">All Day</div>
+            {% else %}
+              {# check if daylight savings time, modify to correct time #}
+              {% if daylight_savings == '1' %}
+                <div class="field--item evt-time">{{ dates.value|date_modify("-4 hours")|date('g:iA') ~ ' - ' ~ dates.end_value|date_modify("-4 hours")|date('g:iA') }}</div>
+              {% else %}
+                <div class="field--item evt-time">{{ dates.value|date_modify("-5 hours")|date('g:iA') ~ ' - ' ~ dates.end_value|date_modify("-5 hours")|date('g:iA') }}</div>
+              {% endif %}
+            {% endif %}
+
+            {# place LOCATION value #}
+        <i class="fa fa-map-marker evt-icon"></i> <div class="field--item evt-loc">{{ content.field_evt_location_2 }}</div>
+<br/>
+
+      </div>
+
+{# Only show AddToCalendar if not All Day Event #}
+{% if start_date_cal != end_date_cal %}
+{# BEGIN AddToCalendar #}
+      <div class="col-xs-12 col-md-4 evt-cal">
+        {# place and hide date range field/AddToCalendar so stylesheet activates for btn #}
+        <div class="hidden">
+          {{ content.field_evt_date_range }}
+        </div>
+
+        {# BEGIN setup AddToCalendar btn #}
+          <div class="field field--name-field-evt-date-range field--type-daterange field--label-visually_hidden quickedit-field">
+            <div class="field--label sr-only">Date Range</div>
+            <div class="field__items">
+              <div class="field--item">
+
+                <span class="addtocalendar atc-style-blue" data-calendars="iCalendar, Google Calendar, Outlook, Outlook Online, Yahoo! Calendar, " data-secure="auto">
+                  <a class="atcb-link" tabindex="1" id="">Add to Calendar</a>
+                  <var class="atc_event">
+                    <var class="atc_date_start">{{ start_date_cal }}</var>
+                    <var class="atc_date_end">{{ end_date_cal }}</var>
+                    <var class="atc_title">{{ node.label }}</var>
+                    <var class="atc_description">{{ node.body.value|striptags }}</var>
+                    <var class="atc_location">{{ content.field_evt_location_2.0 }}</var>
+                    <var class="atc_organizer">{{ site_name }}</var>
+                    <var class="atc_organizer_email">{{ site_mail }}</var>
+                    <var class="atc_timezone">America/New_York</var>
+                    <var class="atc_privacy">public</var>
+                  </var>
+                </span>
+              </div>
+            </div>
+          </div>
+        {# END setup AddToCalendar btn #}
+      </div>
+{# END AddToCalendar #}
+{% endif %}
+
+{% endfor %}{# END for loop to display all event dates #}
+
+
+    </div>
+      {{ content|without('field_evt_image')|without('field_evt_location_2')|without('field_evt_date')|without('field_evt_date_range')|without('field_evt_time')|without('field_evt_social_share')|without('field_evt_taxonomy')|without('field_evt_taxonomy2')  }}
+
+      {% if (content.field_evt_taxonomy.0 != '') or (content.field_evt_taxonomy2.0 != '') %}
+        <div class="taxonomy-events-heading">
+          <h2>Events Filters:</h2>
+        </div>
+      {% endif %}
+
+      {% for item in content.field_evt_taxonomy %}
+        {% if item['#title'] %}
+          <div class="taxonomy-events">
+            <a href="/{{ evpattern }}?field_evt_taxonomy_target_id_1={{ item['#options'].entity.tid.0.value }}">
+              {{ item['#title'] }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+
+      {% for item in content.field_evt_taxonomy2 %}
+        {% if item['#title'] %}
+          <div class="taxonomy-events">
+            <a href="/{{ evpattern }}?field_evt_taxonomy2_target_id={{ item['#options'].entity.tid.0.value }}">
+              {{ item['#title'] }}
+            </a>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <hr/>
+      {% if node.field_evt_social_share.value == 1 %}
+        {{ content.field_evt_social_share }}
+      {% endif %}
+    </div>
+  </div>
+
+</article>

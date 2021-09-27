@@ -1,0 +1,27 @@
+asc_courses.settings:
+  title: 'ASC Courses Settings'
+  description: 'Configure settings for the ASC Courses module'
+  route_name: asc_courses.settings
+  parent: 'system.admin_config_content'
+
+# A nested menu link for the same page as the parent menu link
+asc_courses.selections:
+  title: 'Course Selections'
+  description: 'Choose courses to import'
+  route_name: asc_courses.settings
+  parent: 'asc_courses.settings'
+  weight: 1
+
+asc_courses.search:
+  title: 'Course Search'
+  description: 'Search for courses and identify their IDs'
+  route_name: asc_courses.search
+  parent: 'asc_courses.settings'
+  weight: 5
+
+asc_courses.api_settings:
+  title: 'API Settings'
+  description: 'Administrate API settings'
+  route_name: asc_courses.api_settings
+  parent: 'asc_courses.settings'
+  weight: 10

@@ -1,0 +1,125 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Fields
+// --------------------------------------------------
+
+.field--name-field-text {
+  p {
+    margin: 0 0 20px;
+  }
+}
+
+.field--name-field-slides {
+
+  img {
+    width: $full;
+  }
+}
+
+.field--name-field-class-reference {
+  display: none;
+}
+
+.field--name-field-column {
+  width: $full - 10;
+  margin: 0 auto;
+}
+
+.field--name-field-focus {
+  text-align: center;
+  padding: 10px;
+  border: solid #4A4A4A 2px;
+  @include border-radius(5px);
+
+  a {
+    border: none;
+    color: #4A4A4A;
+  }
+}
+
+.btn-link {
+  width: 100%;
+  float: left;
+  margin-bottom: 20px;
+
+  .field--name-field-button-link {
+    padding: 10px;
+    float: left;
+    background: #851E5E;
+    text-transform: uppercase;
+    border: solid #501238 1px;
+    @include border-radius(5px);
+
+    a {
+      color: $white;
+      text-decoration: none;
+      border-bottom: none;
+
+      &:hover {
+        border-bottom: solid 2px $white;
+        background-color: transparent;
+      }
+    }
+
+    svg {
+      color: $white;
+    }
+  }
+}
+
+
+
+// ---------------------------------------------------
+
+//## Pull Quote
+
+.field--name-field-pull-quote {
+  border-top: solid 2px $blue-green;
+  border-bottom: solid 2px $blue-green;
+  font-size: $font-size-h3;
+  font-family: 'Capita', Times, serif;
+  font-weight: 400;
+  padding: 5px;
+}
+
+
+
+// ---------------------------------------------------
+
+//## File entity
+
+.embedded-entity {
+
+  .file {
+    font-weight: 500;
+    line-height: 2;
+  }
+
+  .file>span {
+      border-bottom: none;
+      border-top: none;
+  }
+
+  .file>span:first-child {
+    border-left: none;
+  }
+
+  .file-icon {
+    display: none;
+  }
+
+  .file-link {
+    font-size: 16px;
+  }
+
+  .file-size {
+    display: none;
+  }
+}
+
+ul .embedded-entity {
+  position: relative;
+  top: 10px;
+}

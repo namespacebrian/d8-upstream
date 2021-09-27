@@ -1,0 +1,7 @@
+block.block.*.third_party.menu_block_title:
+  type: mapping
+  label: Menu block title third party settings
+  mapping:
+    modify_title:
+      type: boolean
+      label: Whether to modify the block title

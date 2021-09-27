@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * @file
+ * Block region permissions module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function block_region_permissions_form_block_admin_display_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Get theme name.
+  $current_path = \Drupal::service('path.current')->getPath();
+  if ($current_path == '/admin/structure/block') {
+    // Get default theme.
+    $theme_key = \Drupal::config('system.theme')->get('default');
+  }
+  else {
+    // Get theme from path.
+    $theme_key = str_replace('/admin/structure/block/list/', '', $current_path);
+  }
+
+  // Get block keys for each region.
+  // Also get a master list of region select field options.
+  $region_block_keys = [];
+  $region_options = [];
+  $block_elements = Element::children($form['blocks']);
+  foreach ($block_elements as $block_key) {
+    // Get region name.
+    $region_key = '';
+    if (substr($block_key, 0, 7) == 'region-') {
+      // Region label or message.
+      list(, $region_key,) = explode('-', $block_key);
+    }
+    elseif ($block = Block::load($block_key)) {
+      // Region block.
+      $region_key = $block->getRegion();
+      // Save master list of options one time.
+      if (empty($region_options)) {
+        $region_options = $form['blocks'][$block_key]['region-theme']['region']['#options'];
+      }
+    }
+    // Save region names with block keys.
+    if (!empty($region_key)) {
+      if ($region_key == -1) {
+        $region_key = 'disabled';
+      }
+      $region_block_keys[$region_key][] = $block_key;
+    }
+  }
+
+  // Remove blocks for regions the user cannot administer.
+  foreach ($region_block_keys as $region_key => $block_keys) {
+    if ($region_key != 'disabled') {
+      if (!\Drupal::currentUser()->hasPermission("administer $theme_key $region_key")) {
+        // Remove block.
+        foreach ($block_keys as $block_key) {
+          unset($form['blocks'][$block_key]);
+        }
+        // Update tracking.
+        unset($region_block_keys[$region_key]);
+      }
+    }
+  }
+
+  // Remove region select field options for regions the user cannot administer.
+  if (!empty($region_block_keys)) {
+    // Remove options from master list.
+    foreach ($region_options as $region_key => $options) {
+      if (!\Drupal::currentUser()->hasPermission("administer $theme_key $region_key")) {
+        unset($region_options[$region_key]);
+      }
+    }
+    // Replace form block options with master list.
+    foreach ($region_block_keys as $region_key => $block_keys) {
+      foreach ($block_keys as $block_key) {
+        if (isset($form['blocks'][$block_key]['region-theme']['region']['#options'])) {
+          $form['blocks'][$block_key]['region-theme']['region']['#options'] = $region_options;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function block_region_permissions_form_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Get theme name.
+  $theme_key = $form['theme']['#value'];
+
+  // Remove region select field options for regions the user cannot administer.
+  $region_options = $form['region']['#options'];
+  foreach ($region_options as $region_key => $options) {
+    if (!\Drupal::currentUser()->hasPermission("administer $theme_key $region_key")) {
+      unset($form['region']['#options'][$region_key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_block_access().
+ */
+function block_region_permissions_block_access(Block $block, $operation, AccountInterface $account) {
+  // Disallow delete and update permissions if the user cannot administer for
+  // the selected region.
+  switch ($operation) {
+    case 'delete':
+    case 'update':
+      $theme_key = $block->getTheme();
+      $region_key = $block->getRegion();
+
+      // Skip disabled/none.
+      if ($region_key != -1) {
+        // Negate to hide operation link.
+        return AccessResult::forbiddenIf(!\Drupal::currentUser()->hasPermission("administer $theme_key $region_key"));
+      }
+  }
+}

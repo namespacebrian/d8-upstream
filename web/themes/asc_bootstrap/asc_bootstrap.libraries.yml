@@ -1,0 +1,73 @@
+#asc_bootstrap-corescripts:
+  #version: VERSION
+  #js:
+    #js/cbpHorizontalMenu.js: {}
+    #js/modernizr.custom.js: {}
+    #js/scripts.js: {}
+  #dependencies:
+    #- core/jquery
+    #- core/drupal.ajax
+    #- core/drupal
+    #- core/drupalSettings
+    #- core/jquery.once
+
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      #css/test-styles.css: {}
+      css/osu_navbar-resp-white.css: {}
+      #css/a11y-navbar.styles.css: {}
+      css/ekko-lightbox.css: {}
+  js:
+    js/scripts.js: {}
+    #js/dist/a11yNavbar.min.js: {}
+    js/dist/hoverintent.min.js: {}
+    js/dist/polyfill.min.js: {}
+    js/ekko-lightbox.js: {}
+  dependencies:
+    #- core/jquery
+    #- core/drupal.ajax
+    #- core/drupal
+    #- core/drupalSettings
+    #- core/jquery.once
+    - core/jquery
+    - core/drupal
+
+bootstrap-scripts:
+  js:
+    assets/javascripts/bootstrap/affix.js: {}
+    assets/javascripts/bootstrap/alert.js: {}
+    assets/javascripts/bootstrap/button.js: {}
+    assets/javascripts/bootstrap/carousel.js: {}
+    assets/javascripts/bootstrap/collapse.js: {}
+    assets/javascripts/bootstrap/dropdown.js: {}
+    assets/javascripts/bootstrap/modal.js: {}
+    assets/javascripts/bootstrap/tooltip.js: {}
+    assets/javascripts/bootstrap/popover.js: {}
+    assets/javascripts/bootstrap/scrollspy.js: {}
+    assets/javascripts/bootstrap/tab.js: {}
+    assets/javascripts/bootstrap/transition.js: {}
+    #//use.fontawesome.com/releases/v5.2.0/js/all.js: { type: external, minified: true }
+
+
+osu-webfonts:
+        remote: https://www.osu.edu/assets/fonts/extended/webfonts.css?ver=5.4.4
+        version: 5.4.4
+        license:
+          name: Hoftype
+          url: http://www.fontspring.com/fflicense/hoftype
+        css:
+          theme:
+            https://www.osu.edu/assets/fonts/extended/webfonts.css?ver=5.4.4: { type: external, minified: false }
+
+font-awesome:
+  remote: https://fortawesome.github.io/Font-Awesome/
+  version: 4.5.0
+  license:
+    name: MIT
+    url: https://fortawesome.github.io/Font-Awesome/license/
+    gpl-compatible: true
+  css:
+    theme:
+      https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css: { type: external, minified: true }

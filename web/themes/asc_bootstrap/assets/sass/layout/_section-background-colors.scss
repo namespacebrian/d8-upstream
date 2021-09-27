@@ -1,0 +1,517 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Background Colors
+// --------------------------------------------------
+
+//## Background Colors for Sections.
+
+
+.default-bg {
+  background-color: #1B494C;
+}
+
+.transparent-bg {
+  padding: 16px;
+}
+
+
+// --------------------------------------------------
+// Light Colors
+// --------------------------------------------------
+
+.lgray-bg {
+  background-color: #f5f5f5;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.lblue-bg {
+  background-color: #e9eff7;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.lviolet-bg {
+  background-color: #f3e9ef;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.ltaupe-bg {
+  background-color: #f5f5ee;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.lturquoise-bg {
+  background-color: #f1f8f7;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.lteal-bg {
+  background-color: #eaf0f1;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+.lyellow-bg {
+  background-color: #f6f9da;
+  color: $black-base;
+  padding: 16px;
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $black-base;
+  }
+}
+
+
+// --------------------------------------------------
+// Dark Colors
+// --------------------------------------------------
+
+.dgray-bg {
+  background-color: $brand-gray;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dscarlet-bg {
+  background-color: #830000;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dviolet-bg {
+  background-color: #5d1542;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dteal-bg {
+  background-color: #1b494c;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dpurple-bg {
+  background-color: #442369;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dgreen-bg {
+  background-color: #565b22;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}
+
+.dorange-bg {
+  background-color: #953d1c;
+  color: $white;
+  padding: 16px;
+
+  p {
+    color: $white;
+  }
+
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+
+  .tab-header {
+    color: $white;
+  }
+
+  .accordion-header {
+    color: $white;
+  }
+
+  .panel {
+    background-color: transparent;
+  }
+
+  .field--name-field-pull-quote {
+    border-top-color: $white;
+    border-bottom-color: $white;
+  }
+
+  .paragraph--type--tabs a:hover {
+    color: $gray;
+  }
+
+  .field--name-field-callout-link a:hover {
+    color: $white;
+  }
+
+  .btn-fullw {
+    border: solid $white 2px;
+
+    &:hover {
+      border: solid $brand-gray 2px;
+    }
+  }
+}

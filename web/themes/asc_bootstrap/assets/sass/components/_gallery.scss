@@ -1,0 +1,150 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Gallery Landing Page
+// --------------------------------------------------
+
+//## view grid.
+
+.views-field-field-gallery-description {
+  padding: 0 10px 40px;
+}
+
+.view-gallery-directory {
+  .row {
+    display: flex;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+  }
+}
+
+
+//
+// Gallery
+// --------------------------------------------------
+
+//## Gallery grid.
+.gallery {
+  margin-bottom: 40px;
+
+  .field--name-field-gallery-media {
+    .field--item {
+      width: 150px;
+      display: inline-block;
+      margin: 10px 5px;
+
+      .gallery-card {
+        display: inline-block;
+        margin: 10px 10px 10px 0;
+
+        a {
+          width: 150px;
+          display: inherit;
+          overflow: hidden;
+          height: 150px;
+        }
+      }
+
+      .video-gallery {
+
+        a {
+          width: 150px;
+          display: inherit;
+          overflow: hidden;
+          height: 150px;
+
+          img {
+            width: 300px;
+            height: auto;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+.ekko-lightbox-nav-overlay-left {
+  z-index: 1;
+  position: inherit;
+  height: 10%;
+  width: 10%;
+  float: left;
+  top: 50%;
+
+  a {
+    color: #fff;
+    font-size: 30px;
+    display: block;
+    position: absolute;
+    left: 10px;
+    background: rgba(100,100,100,.5);
+
+
+    span {
+      width: 100%;
+      padding: 0 15px;
+      text-align: left;
+    }
+  }
+
+}
+
+.ekko-lightbox-nav-overlay-right {
+  z-index: 1;
+  position: inherit;
+  height: 10%;
+  width: 10%;
+  float: right;
+  top: 50%;
+
+  a {
+    color: #fff;
+    font-size: 30px;
+    display: block;
+    position: absolute;
+    right: 10px;
+    background: rgba(100,100,100,.5);
+
+    span {
+      text-align: right;
+      padding: 0 15px;
+      width: 100%;
+    }
+  }
+
+}
+
+.ekko-lightbox-nav-overlay {
+  // z-index: 0 !important;
+  // width: 200% !important;
+  // margin-left: -50% !important;
+  // display: flex !important;
+
+  a {
+    opacity: 1 !important;
+    color: $black-base;
+    position: absolute;
+    bottom: 50%;
+
+    &:first-child {
+      left: 10px;
+    }
+
+    &:last-child {
+      right: 10px;
+    }
+  }
+}
+
+.ekko-lightbox-container>div.ekko-lightbox-item {
+  z-index: 1;
+}
+
+.embed-responsive {
+  z-index: 1;
+}

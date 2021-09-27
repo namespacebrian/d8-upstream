@@ -1,0 +1,170 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Research
+// --------------------------------------------------
+
+//## Research Directory.
+
+.page-node-type-research-landing-page {
+
+  #views-exposed-form-research-project-directory-block-1 {
+    .form-inline .control-label {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+  }
+
+  .view-research-project-gallery {
+    margin-bottom: 80px;
+
+    .row {
+      display: flex;
+      margin-bottom: 40px;
+
+      @media (max-width: 768px) {
+        display: block;
+      }
+    }
+  }
+}
+
+.view-research-project-directory {
+
+  table {
+
+    .views-field-title {
+      width: 35%
+    }
+
+    .views-field-field-research-year {
+      width: 10%;
+
+      @media (max-width: 992px) {
+        width: 15%;
+      }
+    }
+  }
+}
+
+
+// --------------------------------------------------
+
+//## Research Article.
+
+.page-node-type-research {
+
+  article {
+    margin-bottom: 16px;
+  }
+
+  .page-header {
+    display: none;
+  }
+
+  .research-title-wrapper {
+    padding-left: 0;
+  }
+
+  .research-cont {
+    padding-left: 0;
+
+    .field--name-field-research-body {
+      margin: 20px 0 40px;
+    }
+  }
+
+  .research-users {
+    margin-bottom: 15px;
+
+    h2 {
+      line-height: 0;
+      font-size: 18px;
+    }
+  }
+
+  .taxonomy-research-wrapper {
+    width: 100%;
+    display: inline-block;
+
+    .taxonomy-research-heading {
+      width: 100%;
+      padding-top: 15px;
+
+      h3 {
+        line-height: 0;
+        font-size: 18px;
+      }
+    }
+  }
+
+}
+
+.research {
+
+  .field--name-field-research-body {
+    margin-bottom: 20px;
+  }
+}
+
+
+
+// --------------------------------------------------
+
+//## Research Project Gallery.
+
+.page-node-type-research-project-gallery {
+
+  article {
+    margin-bottom: 16px;
+  }
+
+  .page-header {
+    display: none;
+  }
+
+  .rgall-title-wrapper {
+    padding-left: 0;
+  }
+
+  .rgall-cont {
+    padding-left: 0;
+
+    .field--name-body {
+      margin: 20px 0 40px;
+    }
+  }
+
+}
+
+
+// --------------------------------------------------
+
+//## Research taxonomy.
+
+.taxonomy-rgall-heading {
+  float: left;
+  width: 100%;
+  padding-top: 15px;
+
+  h2 {
+    line-height: 0;
+    font-size: 18px;
+  }
+}
+
+.taxonomy-research-heading {
+  float: left;
+  width: 100%;
+  padding-top: 15px;
+
+  h2 {
+    line-height: 0;
+    font-size: 18px;
+  }
+}

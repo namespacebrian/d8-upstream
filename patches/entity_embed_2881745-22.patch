@@ -1,0 +1,10 @@
+diff --git a/templates/entity-embed-container.html.twig b/templates/entity-embed-container.html.twig
+index 43fedc7..e3af878 100644
+--- a/templates/entity-embed-container.html.twig
++++ b/templates/entity-embed-container.html.twig
+@@ -12,4 +12,4 @@
+  * @ingroup themeable
+  */
+ #}
+-<article{{ attributes }}>{{ children }}</article>
++<div{{ attributes }}>{{ children }}</div>

@@ -1,0 +1,60 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Aside
+// --------------------------------------------------
+
+aside {
+  background: #efefef;
+  border-left: $white solid 15px;
+  border-right: $white solid 15px;
+
+  img {
+    width: $full;
+    padding: 20px;
+  }
+
+  .region-sidebar-second {
+    padding: 5px 5px 20px;
+    width: $full;
+    float: left;
+  }
+
+  .region-sidebar-menu {
+    float: left;
+    padding: 5px 5px 20px;
+    width: $full;
+
+    nav {
+      width: $full;
+
+      ul {
+        width: $full;
+
+        .menu {
+          position: relative;
+          background-color: transparent;
+          z-index: 0;
+          display: block;
+          float: none;
+          border: 0;
+          border-radius: 0;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+        }
+
+        li {
+          width: $full;
+        }
+
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 100% !important;
+    float: left;
+  }
+}
+

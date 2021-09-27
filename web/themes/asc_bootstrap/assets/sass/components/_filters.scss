@@ -1,0 +1,1086 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Filters
+// --------------------------------------------------
+
+.bef-exposed-form .form--inline > .form-item {
+    float: none;
+}
+
+.ui-datepicker {
+  z-index: 200 !important;
+}
+
+
+#views-exposed-form-events-page-1,
+#views-exposed-form-news-page-1,
+#views-exposed-form-research-project-directory-page-1 {
+  .control-label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+}
+
+
+// --------------------------------------------------
+//## Courses filters.
+
+.view-courses {
+  .control-label {
+    display: none;
+  }
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 20px 15px 15px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-spacer {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .form-submit {
+      float: right;
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+  }
+
+}
+
+
+
+// --------------------------------------------------
+//## Courses Mobile.
+
+.view-display-id-page_3 {
+  .view-filters {
+      background: #D8D8D8;
+      padding: 10px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .form-item {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .form-type-textfield {
+    width: 100%;
+    background: transparent;
+    padding: 0;
+
+    label {
+      display: none;
+    }
+
+    .form-control {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+  }
+
+  .select-wrapper {
+    width: 100%;
+
+    select {
+      min-width: 100%;
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+  }
+
+  .form-actions {
+
+    .form-submit {
+      float: right;
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+  }
+
+  .views-row {
+    .views-col {
+      background: #F9F9F9;
+      border: #DDD solid 1px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .form-item-field-research-departments-target-id-all {
+    display: none;
+  }
+
+  .form-item-field-research-other-target-id-all {
+    display: none;
+  }
+
+  .form-item-field-research-year-target-id-all {
+    display: none;
+  }
+}
+
+
+
+// --------------------------------------------------
+//## Events.
+
+.path-events {
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-events {
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 10px 20px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .filter-spacer {
+    display: none;
+
+    @media (max-width: 1200px) {
+      display: block;
+    }
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+}
+
+
+// --------------------------------------------------
+//## Gallery filters.
+
+.path-gallery {
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-gallery-directory {
+
+  .control-label {
+    display: none;
+  }
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 20px 15px 15px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .filter-spacer {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+}
+
+
+// --------------------------------------------------
+//## News story.
+
+.path-news {
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-news {
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 10px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .filter-spacer {
+    display: none;
+
+    @media (max-width: 1200px) {
+      display: block;
+    }
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+
+// --------------------------------------------------
+//## People Directory.
+
+.path-people {
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-people-directory {
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 10px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .filter-spacer {
+    display: none;
+
+    @media (max-width: 1200px) {
+      display: block;
+    }
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+}
+
+#views-exposed-form-people-directory-page-1 {
+  .form-item {
+    margin-right: 20px;
+
+    .panel-heading {
+      padding: 0 15px;
+
+      .panel-title {
+
+        .fa {
+          float: right;
+          margin-top: 5px;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ie-appearance: none;
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    margin-right: 10px;
+
+    &:active, &:checked:active {
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    &:checked {
+      background-color: #442369;
+      border: 1px solid #adb8c0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+      color: #99a1a7;
+    }
+
+    &:checked:after {
+      content: '\2713';
+      font-size: 18px;
+      position: absolute;
+      top: 0px;
+      left: 4px;
+      color: $white;
+    }
+  }
+
+  .form-item-combine {
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+}
+
+.block-views-exposed-filter-blockpeople-directory-page-1 {
+  padding: 20px 0px;
+
+  .form-wrapper {
+    margin-top: 20px;
+
+    legend {
+      text-transform: uppercase;
+      color: #4A4A4A;
+      font-weight: bold;
+      font-size: 18px;
+      border-bottom: none;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+
+
+// --------------------------------------------------
+//## Research Directory.
+
+.path-research-project-directory{
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-research-project-directory {
+
+  .view-filters {
+      background: #D8D8D8;
+      padding: 10px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+  }
+
+  .select-wrapper {
+
+    select {
+      min-width: 250px;
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+}
+
+
+// --------------------------------------------------
+//## Research Directory Mobile.
+
+.path-research-project-directory-mobile{
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-research-project-directory-mobile {
+
+  .view-filters {
+      background: #D8D8D8;
+      padding: 10px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .form-item {
+    background: $white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+
+  .form-type-textfield {
+    width: 100%;
+    background: transparent;
+    padding: 0;
+
+    label {
+      display: none;
+    }
+
+    .form-control {
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+  }
+
+  .select-wrapper {
+
+    select {
+      min-width: 250px;
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+  .views-row {
+    .views-col {
+      background: #F9F9F9;
+      border: #DDD solid 1px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+  }
+
+  .form-item-field-research-departments-target-id-all {
+    display: none;
+  }
+
+  .form-item-field-research-other-target-id-all {
+    display: none;
+  }
+
+  .form-item-field-research-year-target-id-all {
+    display: none;
+  }
+}
+
+
+
+// --------------------------------------------------
+//## Research Gallery filters.
+
+.path-research-project-gallery{
+  .page-header {
+    margin: 44px 0 0;
+    border-bottom: none;
+  }
+}
+
+.view-research-project-gallery {
+
+  .control-label {
+    display: none;
+  }
+
+  .view-filters {
+    background: #D8D8D8;
+    padding: 20px 15px 15px;
+  }
+
+  .filter-heading {
+    color: #225D62;
+    width: 100%;
+  }
+
+  .filter-linebreak {
+    padding: 8px;
+
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .filter-spacer {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .select-wrapper {
+    margin-right: 10px;
+
+    select {
+      min-width: 250px;
+
+      @media (max-width: 1200px) {
+        margin-top: 10px;
+        min-width: 273px;
+      }
+
+      @media (max-width: 768px) {
+        margin-top: 0;
+        min-width: 0;
+      }
+    }
+
+    &:after {
+      color: #555555;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-type-textfield {
+    margin-right: 10px;
+
+    input {
+      min-width: 250px;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+
+    .button {
+      text-transform: uppercase;
+      border-radius: 0;
+    }
+
+    .form-submit {
+      float: right;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        float: none;
+      }
+    }
+
+    .btn-primary {
+      background-color: #26686d;
+      border-color: #225d62;
+
+      &:hover {
+        background-color: #1b494c;
+        border-color: #1e5357;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+}
+
+
+

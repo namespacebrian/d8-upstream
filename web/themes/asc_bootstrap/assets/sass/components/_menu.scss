@@ -1,0 +1,308 @@
+@import "helpers/mixins";
+@import "helpers/variables";
+@import "helpers/functions";
+
+#main-nav {
+  background-color: #373535;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 50;
+
+  @media (max-width: 768px) {
+    position: inherit;
+    display: block;
+  }
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+  background: transparent;
+  color: #333333;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: transparent;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    @include border-radius(6px 0 6px 6px)
+}
+
+.navbar-nav li:last-child > .dropdown-menu .dropdown-submenu > a:after {
+  float: left;
+  content: "\e079";
+}
+.navbar-nav li:last-child > .dropdown-menu .dropdown-submenu > .dropdown-menu {
+  left: -100%;
+}
+
+
+
+#superfish-main.sf-style-white {
+  margin-bottom: 0;
+
+  a {
+    text-transform: uppercase;
+    color: $white;
+    text-decoration: none;
+    font-weight: 400;
+
+    &:hover {
+      background: rgba(#D8D8D8, .25);
+    }
+  }
+
+  li {
+    background: transparent;
+
+    ul {
+      background: $menu-gray;
+
+      a {
+        color: $brand-gray;
+        text-transform: none;
+
+        &:hover {
+          background: $brand-red;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .sfHover a.sf-depth-1:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    margin: 0 0 0 -8px;
+    border-bottom: 7px solid $menu-gray;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    z-index: 400;
+  }
+
+  a.sf-depth-1 {
+    svg, i {
+      display: none;
+    }
+  }
+
+  a.sf-with-ul {
+    padding: 0.75em 1em;
+  }
+
+  svg, i {
+    float: right;
+  }
+}
+
+.search-box{
+  background: #E8E8E4;
+  position: absolute;
+  top: 54px;
+  right: 28.7%;
+  width: 350px;
+  height: 60px;
+  line-height: 60px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-top:4px solid #D80B15;
+  display: none;
+
+  &:before{
+      content: "";
+      position: absolute;
+      top: -32px;
+      right: 13px;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid #D80B15;
+    }
+
+  input[type="text"]{
+    width: 200px;
+    padding: 5px 10px;
+    margin-left: 23px;
+    border: 1px solid #D80B15;
+    outline: none;
+  }
+
+  input[type="button"]{
+    width: 80px;
+    padding: 5px 0;
+    background: #D80B15;
+    color: #fff;
+    margin-left: -6px;
+    border: 1px solid #D80B15;
+    outline: none;
+    cursor: $point;
+  }
+}
+
+#superfish-main {
+  width: 95%;
+}
+
+#superfish-main.sf-style-white a:focus {
+    color: #373535;
+}
+#superfish-main.sf-style-white a:hover {
+    color: $white;
+}
+
+
+
+// --------------------------------------------------
+
+//## Accessibility Instructions.
+
+#main-nav-menubar-instructions {
+  background-color: rgba(0,0,0,0.9);
+  position: absolute;
+  top: -5em;
+  left: 200px;
+  padding: .4em .6em;
+  font-size: 16px;
+  display: none;
+  width: 450px;
+
+  p {
+    color: $white;
+  }
+}
+
+
+
+// --------------------------------------------------
+
+//## Sticky Nav.
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    position: inherit;
+    display: block;
+  }
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+
+
+// --------------------------------------------------
+
+//## Mobile styles.
+
+
+@media (max-width: 768px) {
+  #main-nav .container {
+    padding-left: 0;
+    padding-right: 0;
+
+    &:after {
+      content: "";
+      display: none;
+    }
+    .clearfix:after {
+      content: "";
+      display: none;
+    }
+  }
+
+  div.sf-accordion-toggle.sf-style-white > a:after {
+      content: "";
+      display: none;
+  }
+  ul.sf-menu.sf-accordion.sf-accordion-with-buttons li.sf-expanded > .sf-accordion-button:after {
+    content: "";
+    display: none;
+  }
+
+  #block-dummyheader img {
+    width: 100%;
+  }
+
+  div.sf-accordion-toggle.sf-style-white a {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+
+    span {
+      display: none;
+    }
+  }
+
+  div.sf-accordion-toggle.sf-style-white a.sf-expanded {
+    background: transparent;
+  }
+
+  ul.sf-menu.sf-accordion.sf-accordion-with-buttons .sf-accordion-button:after {
+    content: "";
+    margin: 0;
+  }
+
+  ul.sf-menu.sf-style-white.sf-accordion li.sf-expanded {
+    background: $brand-lgray;
+  }
+
+  ul.sf-menu.sf-style-white li, ul.sf-menu.sf-style-white.sf-navbar {
+    border: solid 1px #979797;
+  }
+
+  ul.sf-menu.sf-style-white.sf-accordion li li a, ul.sf-menu.sf-style-white.sf-accordion li li span.nolink {
+    background: $menu-gray;
+  }
+
+  ul.sf-menu.sf-style-white a, ul.sf-menu.sf-style-white a:visited, ul.sf-menu.sf-style-white span.nolink {
+    color: #373735;
+  }
+
+  .sf-menu {
+    .sf-depth-1 a {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .sf-depth-2 a {
+      text-transform: none;
+      font-weight: 400;
+    }
+
+    .hidetxt {
+      position: absolute;
+      left: -99999999px;
+      width: 0;
+      height: 0;
+    }
+
+    .sf-accordion-button {
+      padding: 5px 15px 0;
+      border-left: solid 1px #979797 !important;
+      background: $menu-gray !important;
+
+      svg, i {
+        font-size: 18px;
+        color: #BB0000;
+      }
+    }
+  }
+
+  div.sf-accordion-toggle.sf-style-white a {
+    padding: .05em .5em;
+  }
+
+}

@@ -1,0 +1,7 @@
+asc_courses:
+  qa_consumer_key: 'asdf1'
+  qa_consumer_secret: "asdf2"
+  prod_consumer_key: 'asdf3'
+  prod_consumer_secret: "asdf4"
+  eip_environment: "qa"
+  

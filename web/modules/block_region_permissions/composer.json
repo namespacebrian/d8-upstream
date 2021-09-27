@@ -1,0 +1,20 @@
+{
+    "name": "drupal/block_region_permissions",
+    "description": "Block Region Permissions adds permissions for administering 'blocks' based on each theme's regions.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "readme": "README.md",
+    "homepage": "https://www.drupal.org/project/block_region_permissions",
+    "authors": [{
+        "name": "Joshua Roberson",
+        "homepage": "https://www.drupal.org/u/joshuaroberson",
+        "role": "Maintainer"
+    }],
+    "suggest": {
+        "drupal/block_content_permissions": "Block Content Permissions adds permissions for administering 'block content types' and 'block content'."
+    },
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/block_region_permissions",
+        "source": "https://git.drupalcode.org/project/block_region_permissions"
+    }
+}

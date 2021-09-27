@@ -1,0 +1,41 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Fields
+// --------------------------------------------------
+
+.field--name-field-slides img {
+  width: $full;
+}
+
+.field--name-field-class-reference {
+  display: none;
+}
+
+.field--name-field-column {
+  width: $full - 10;
+  margin: 0 auto;
+}
+
+.field--name-field-pull-quote {
+  border-top: solid 2px $blue-green;
+  border-bottom: solid 2px $blue-green;
+  font-size: $font-size-h3;
+  font-family: 'Capita', Times, serif;
+  font-weight: 400;
+  padding: 5px;
+}
+
+article .field--name-body {
+  margin: 20px 0;
+}
+
+
+//
+// Google Maps Field
+// --------------------------------------------------
+
+.field--name-field-google-map {
+  padding: 15px 0;
+}

@@ -1,0 +1,12 @@
+diff --git a/multiple_fields_remove_button.module b/multiple_fields_remove_button.module
+index 8441489..558994d 100644
+--- a/multiple_fields_remove_button.module
++++ b/multiple_fields_remove_button.module
+@@ -114,6 +114,7 @@ function multiple_fields_remove_button_field_widget_form_alter(&$element, FormSt
+     'date_popup',
+     'date_text',
+     'datetime',
++    'daterange',
+     'decimal',
+     'dynamic_entity_reference',
+     'email',

@@ -1,0 +1,817 @@
+<?php
+use \Drupal\taxonomy\Entity\Term;
+use \Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+
+function asc_bootstrap_preprocess_page(&$vars, $hook) {
+ // Render the library as laid out in herchel.libraries.yml
+ $libraries['#attached']['library'][] = 'asc_bootstrap/asc_bootstrap-corescripts';
+ \Drupal::service('renderer')->render($libraries);
+
+ //adds site name variable which is used as logo alt and title text
+ $vars['site_name'] = \Drupal::config('system.site')->get('name');
+
+ $vars['osu_logo'] = theme_get_setting('osu_logo','asc_bootstrap');
+}
+
+function asc_bootstrap_preprocess_node(&$vars, $hook) {
+ $vars['site_mail'] = \Drupal::config('system.site')->get('mail');
+ $vars['site_name'] = \Drupal::config('system.site')->get('name');
+
+ //get pathauto url alias for event
+ $config = \Drupal::service('config.factory')->get('pathauto.pattern.events');
+ $evpattern = explode('/', $config->get('pattern'));
+ $vars['evpattern'] = $evpattern[0];
+
+ //get research landing page url alias
+ $nids = \Drupal::entityQuery('node')->condition('type','research_landing_page')->execute();
+ $lid = array_shift($nids);
+ $vars['resrch_landing'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$lid);
+
+ //get research gallery landing page url alias
+ $nids2 = \Drupal::entityQuery('node')->condition('type','research_gallery_landing_page')->execute();
+ $lid2 = array_shift($nids2);
+ $vars['resrch_gall_landing'] = \Drupal::service('path_alias.manager')->getAliasByPath('/node/'.$lid2);
+}
+
+/*
+* adds content type to theme suggestions so that landing page doesn't default to page.html.twig
+*/
+function asc_bootstrap_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add content type suggestions.
+  if (($node = \Drupal::request()->attributes->get('node')) && (strpos($_SERVER['REQUEST_URI'], "revisions") == false)) {
+    array_splice($suggestions, 1, 0, 'page__' . $node->getType());
+  }
+}
+
+/*
+* adds content type to variable to be used in paragraph twig files.
+*/
+function asc_bootstrap_preprocess_paragraph(&$variables) {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $variables['page_content_type'] = $node->getType();
+  }
+}
+
+
+function asc_bootstrap_preprocess_block(&$vars) {
+ $vars['site_mail'] = \Drupal::config('system.site')->get('mail');
+ $vars['site_name'] = \Drupal::config('system.site')->get('name');
+}
+
+/*
+* alters news and events filters so that AJAX doesn't remove headings, etc. upon request
+*/
+function asc_bootstrap_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  /*
+  * events and news filters
+  */
+  if (
+         ($form['#id'] == 'views-exposed-form-events-page-1')
+      || ($form['#id'] == 'views-exposed-form-news-page-1')
+      || ($form['#id'] == 'views-exposed-form-gallery-directory-page-1')
+     ) {
+    /*
+    * add new HTML content to filters (headers and spacer)
+    * and setting weights for where they should appear in the form hierarchy
+    */
+    $form['filter_heading'] = array(
+      '#markup' => '<h2 class="filter-heading">Filter</h2>',
+      '#weight' => -10,
+    );
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 4,
+    );
+    $form['spacer'] = array(
+      '#markup' => '<div class="filter-spacer"></div>',
+      '#weight' => 1.5,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['field_evt_date_range_value']['#weight'] = 1;
+    $form['end_date']['#weight'] = 1;
+    $form['field_evt_taxonomy_target_id_1']['#weight'] = 2;
+    $form['field_news_terms_1_target_id']['#weight'] = 2.5;
+    $form['field_evt_taxonomy2_target_id']['#weight'] = 3;
+    $form['field_news_terms_2_target_id']['#weight'] = 3.5;
+    $form['title']['#weight'] = 5;
+    $form['title']['#attributes']['placeholder'] = t('Search Keywords');
+  }
+
+  /*
+  * research filters
+  */
+  if (
+         ($form['#id'] == 'views-exposed-form-research-project-directory-page-1')
+      || ($form['#id'] == 'views-exposed-form-research-project-gallery-page-1')
+      || ($form['#id'] == 'views-exposed-form-research-project-directory-mobile-page-1')
+      || ($form['#id'] == 'views-exposed-form-research-project-directory-block-1')
+      || ($form['#id'] == 'views-exposed-form-research-project-gallery-block-1')
+      || ($form['#id'] == 'views-exposed-form-research-project-directory-mobile-block-1')
+  ) {
+    /*
+    * add new HTML content to filters (headers and spacer)
+    * and setting weights for where they should appear in the form hierarchy
+    */
+    $form['filter_heading'] = array(
+      '#markup' => '<h2 class="filter-heading">Filter</h2>',
+      '#weight' => -10,
+    );
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 4,
+    );
+    $form['spacer'] = array(
+      '#markup' => '<div class="filter-spacer"></div>',
+      '#weight' => 1.5,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['title']['#weight'] = 5;
+    $form['title']['#attributes']['placeholder'] = t('Search Keywords');
+  }
+
+    /*
+    * checking if taxonomy has vocabulary - if not, don't display field
+    */
+
+  //courses
+  if ($form['#id'] == 'views-exposed-form-courses-page-2') {
+    /*
+    * add new HTML content to filters (headers and spacer)
+    * and setting weights for where they should appear in the form hierarchy
+    */
+    if((count($form['field_course_term_1_target_id']['#options']) > 1)
+    || (count($form['field_course_term_2_target_id']['#options']) > 1)
+    || (count($form['field_course_term_3_target_id']['#options']) > 1)) {
+      $form['filter_heading'] = array(
+        '#markup' => '<h2 class="filter-heading">Filter</h2>',
+        '#weight' => -10,
+      );
+    }
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 4,
+    );
+    $form['spacer'] = array(
+      '#markup' => '<div class="filter-spacer"></div>',
+      '#weight' => 1.5,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['title']['#weight'] = 5;
+    $form['title']['#attributes']['placeholder'] = t('Search Keywords');
+
+
+    if(count($form['field_course_term_1_target_id']['#options']) == 1) {
+      $form['field_course_term_1_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_course_term_2_target_id']['#options']) == 1) {
+      $form['field_course_term_2_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_course_term_3_target_id']['#options']) == 1) {
+      $form['field_course_term_3_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_course_term_1_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_1_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_1_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_course_term_2_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_course_term_3_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_3_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_3_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+
+  //courses mobile
+  if ($form['#id'] == 'views-exposed-form-courses-page-3') {
+    if((count($form['field_course_term_1_target_id']['#options']) > 1)
+    || (count($form['field_course_term_2_target_id']['#options']) > 1)
+    || (count($form['field_course_term_3_target_id']['#options']) > 1)) {
+      $form['filter_heading'] = array(
+        '#markup' => '<h2 class="filter-heading">Filter</h2>',
+        '#weight' => -10,
+      );
+    }
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 4,
+    );
+    $form['spacer'] = array(
+      '#markup' => '<div class="filter-spacer"></div>',
+      '#weight' => 1.5,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['title']['#weight'] = 5;
+    $form['title']['#attributes']['placeholder'] = t('Search Keywords');
+
+    if(count($form['field_course_term_1_target_id']['#options']) == 1) {
+      $form['field_course_term_1_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_course_term_2_target_id']['#options']) == 1) {
+      $form['field_course_term_2_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_course_term_3_target_id']['#options']) == 1) {
+      $form['field_course_term_3_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_course_term_1_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_1_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_1_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_course_term_2_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_course_term_3_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_course_term_3_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_course_term_3_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+
+    //events
+  if ($form['#id'] == 'views-exposed-form-events-page-1') {
+    if(count($form['field_evt_taxonomy_target_id_1']['#options']) == 1) {
+      $form['field_evt_taxonomy_target_id_1']['#access'] = FALSE;
+    }
+
+    if(count($form['field_evt_taxonomy2_target_id']['#options']) == 1) {
+      $form['field_evt_taxonomy2_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_evt_taxonomy_target_id_1']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_evt_taxonomy_target_id_1']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_evt_taxonomy_target_id_1']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_evt_taxonomy2_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_evt_taxonomy2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_evt_taxonomy2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+//gallery
+  if ($form['#id'] == 'views-exposed-form-gallery-directory-page-1') {
+    if(count($form['field_gallery_terms_1_target_id']['#options']) == 1) {
+      $form['field_gallery_terms_1_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_gallery_terms_2_target_id']['#options']) == 1) {
+      $form['field_gallery_terms_2_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_gallery_terms_3_target_id']['#options']) == 1) {
+      $form['field_gallery_terms_3_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_gallery_terms_1_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_gallery_terms_1_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_gallery_terms_1_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_gallery_terms_2_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_gallery_terms_2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_gallery_terms_2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_gallery_terms_3_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_gallery_terms_3_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_gallery_terms_3_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+    //news
+  if ($form['#id'] == 'views-exposed-form-news-page-1') {
+    if(count($form['field_news_terms_1_target_id']['#options']) == 1) {
+      $form['field_news_terms_1_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_news_terms_2_target_id']['#options']) == 1) {
+      $form['field_news_terms_2_target_id']['#access'] = FALSE;
+    }
+
+
+    if(isset($form['field_news_terms_1_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_news_terms_1_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_news_terms_1_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_news_terms_2_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_news_terms_2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_news_terms_2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+  //research filters
+  if (
+       ($form['#id'] == 'views-exposed-form-research-project-directory-block-1')
+    || ($form['#id'] == 'views-exposed-form-research-project-directory-page-1')
+    || ($form['#id'] == 'views-exposed-form-research-project-gallery-block-1')
+    || ($form['#id'] == 'views-exposed-form-research-project-gallery-page-1')
+    ) {
+    if(count($form['field_research_departments_target_id']['#options']) == 1) {
+      $form['field_research_departments_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_other_target_id']['#options']) == 1) {
+      $form['field_research_other_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_year_target_id']['#options']) == 1) {
+      $form['field_research_year_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_research_departments_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_research_departments_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_departments_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_research_other_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_research_other_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_other_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_research_year_target_id']['#options']['All'])) {
+      $tarr = array_slice(array_keys($form['field_research_year_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_year_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+    //research - mobile
+  if (($form['#id'] == 'views-exposed-form-research-project-directory-mobile-block-1')||($form['#id'] == 'views-exposed-form-research-project-directory-mobile-page-1')) {
+    if(count($form['field_research_departments_target_id']['#options']) == 0) {
+      $form['field_research_departments_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_other_target_id']['#options']) == 0) {
+      $form['field_research_other_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_year_target_id']['#options']) == 0) {
+      $form['field_research_year_target_id']['#access'] = FALSE;
+    }
+
+    if($form['field_research_departments_target_id']['#theme_wrappers']['details']['#title'] == 'Departments') {
+          $tarr = array_slice(array_keys($form['field_research_departments_target_id']['#options']), 1, 5, true);
+          $tid = array_shift($tarr);
+          $term = Term::load($tid);
+          if (!empty($term)) {
+            $vid = array_shift($term->vid->getValue())['target_id'];
+            if(!empty($vid)) {
+              $vocab = Vocabulary::load($vid);
+              $vocab_label = $vocab->get('name');
+              $form['field_research_departments_target_id']['#theme_wrappers']['details']['#title'] = $vocab_label;
+            }
+          }
+      }
+
+      if($form['field_research_other_target_id']['#theme_wrappers']['details']['#title'] == 'Other') {
+          $tarr = array_slice(array_keys($form['field_research_other_target_id']['#options']), 1, 5, true);
+          $tid = array_shift($tarr);
+          $term = Term::load($tid);
+          if (!empty($term)) {
+            $vid = array_shift($term->vid->getValue())['target_id'];
+            if(!empty($vid)) {
+              $vocab = Vocabulary::load($vid);
+              $vocab_label = $vocab->get('name');
+              $form['field_research_other_target_id']['#theme_wrappers']['details']['#title'] = $vocab_label;
+            }
+          }
+      }
+
+      if($form['field_research_year_target_id']['#theme_wrappers']['details']['#title'] == 'Year') {
+          $tarr = array_slice(array_keys($form['field_research_year_target_id']['#options']), 1, 5, true);
+          $tid = array_shift($tarr);
+          $term = Term::load($tid);
+          if (!empty($term)) {
+            $vid = array_shift($term->vid->getValue())['target_id'];
+            if(!empty($vid)) {
+              $vocab = Vocabulary::load($vid);
+              $vocab_label = $vocab->get('name');
+              $form['field_research_year_target_id']['#theme_wrappers']['details']['#title'] = $vocab_label;
+            }
+          }
+      }
+  }
+
+
+  /*
+  * research gallery filters
+  */
+    if (($form['#id'] == 'views-exposed-form-research-project-gallery-block-1')||($form['#id'] == 'views-exposed-form-research-project-gallery-page-1')) {
+
+    if(count($form['field_research_gallery_tags_target_id']['#options']) == 1) {
+      $form['field_research_gallery_tags_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_gallery_tags_2_target_id']['#options']) == 1) {
+      $form['field_research_gallery_tags_2_target_id']['#access'] = FALSE;
+    }
+
+    if(count($form['field_research_gallery_tags_3_target_id']['#options']) == 1) {
+      $form['field_research_gallery_tags_3_target_id']['#access'] = FALSE;
+    }
+
+    if(isset($form['field_research_gallery_tags_target_id']['#options']['All'])) {
+
+      $tarr = array_slice(array_keys($form['field_research_gallery_tags_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_gallery_tags_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+    if(isset($form['field_research_gallery_tags_2_target_id']['#options']['All'])) {
+
+      $tarr = array_slice(array_keys($form['field_research_gallery_tags_2_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_gallery_tags_2_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+
+
+    if(isset($form['field_research_gallery_tags_3_target_id']['#options']['All'])) {
+
+      $tarr = array_slice(array_keys($form['field_research_gallery_tags_3_target_id']['#options']), 1, 5, true);
+      $tid = array_shift($tarr);
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_gallery_tags_3_target_id']['#options']['All'] = $vocab_label;
+        }
+      }
+    }
+  }
+
+
+
+  /*
+  * people filters
+  */
+  if($form['#id'] == 'views-exposed-form-people-directory-page-1') {
+    /*
+    * add new HTML content to filters (headers and spacer)
+    * and setting weights for where they should appear in the form hierarchy
+    */
+    $form['filter_heading'] = array(
+      '#markup' => '<h2 class="filter-heading">Filter</h2>',
+      '#weight' => -10,
+    );
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 4,
+    );
+    $form['spacer'] = array(
+      '#markup' => '<div class="filter-spacer"></div>',
+      '#weight' => 1.5,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['field_appointment_target_id']['#weight'] = 1;
+    $form['field_research_interests_target_id']['#weight'] = 2;
+    $form['field_other_target_id']['#weight'] = 3;
+    $form['combine']['#weight'] = 5;
+    $form['keys']['#attributes']['placeholder'] = t('Search Keywords');
+    /*
+    * checking if taxonomy has vocabulary - if not, don't display field
+    */
+    if(count($form['field_appointment_target_id']['#options']) == 0) {
+      $form['field_appointment_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_appointment_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_appointment_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+
+    if(count($form['field_research_interests_target_id']['#options']) == 0) {
+      $form['field_research_interests_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_research_interests_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_interests_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+
+
+    if(count($form['field_other_target_id']['#options']) == 0) {
+      $form['field_other_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_other_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_other_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+
+  }
+
+  /*
+  * mobile people filters
+  */
+  if($form['#id'] == 'views-exposed-form-people-directory-page-2') {
+    /*
+    * add new HTML content to filters (headers and spacer)
+    * and setting weights for where they should appear in the form hierarchy
+    */
+    $form['filter_heading'] = array(
+      '#markup' => '<h2 class="ppl-filter-heading ppl-taxon-heading">Filter</h2>',
+      '#weight' => 2,
+    );
+    $form['filter_search_heading'] = array(
+      '#markup' => '<div class="filter-linebreak"></div>',
+      '#weight' => 0,
+    );
+    /*
+    * setting up weights for form elements
+    */
+    $form['combine']['#weight'] = 1;
+    $form['field_appointment_target_id_collapsible']['#weight'] = 3;
+    $form['field_research_interests_target_id_collapsible']['#weight'] = 4;
+    $form['field_other_target_id_collapsible']['#weight'] = 5;
+
+    if(count($form['field_appointment_target_id']['#options']) == 0) {
+      $form['field_appointment_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_appointment_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_appointment_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+
+    if(count($form['field_research_interests_target_id']['#options']) == 0) {
+      $form['field_research_interests_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_research_interests_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_research_interests_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+
+    if(count($form['field_other_target_id']['#options']) == 0) {
+      $form['field_other_target_id_collapsible']['#access'] = FALSE;
+    }
+    else {
+      $tid = array_shift(array_keys($form['field_other_target_id']['#options']));
+      $term = Term::load($tid);
+      if (!empty($term)) {
+        $vid = array_shift($term->vid->getValue())['target_id'];
+        if(!empty($vid)) {
+          $vocab = Vocabulary::load($vid);
+          $vocab_label = $vocab->get('name');
+          $form['field_other_target_id_collapsible']['#title'] = $vocab_label;
+        }
+      }
+    }
+  }
+}
+
+
+function asc_bootstrap_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  // print " - view_current_display: " . $view->current_display;
+
+  if($view->id() == 'research_project_directory' || $view->id() == 'research_project_directory_mobile') {
+      $view->element['#cache']['max-age'] = 0;
+      // get vocabulary name and set label to it
+      $vocab_dep = Vocabulary::load('departments');
+      $vocab_dep_label = $vocab_dep->get('name');
+      $vocab_year = Vocabulary::load('year');
+      $vocab_year_label = $vocab_year->get('name');
+      $vocab_other = Vocabulary::load('other');
+      $vocab_other_label = $vocab_other->get('name');
+
+      $view->field['field_research_departments']->options['label'] = $vocab_dep_label;
+      $view->field['field_research_year']->options['label'] = $vocab_year_label;
+      $view->field['field_research_other']->options['label'] = $vocab_other_label;
+  }
+}
+
+/*
+* views
+*/
+function asc_bootstrap_preprocess_views_view(&$vars) {
+  //adds view name variable which is used to identify which view directory user is on (based off view id)
+  $vars['view_name'] = $vars['id'];
+}

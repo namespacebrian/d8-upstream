@@ -1,0 +1,49 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      css/osu-nav.css: {}
+      #css/re-styles.css: {}
+  js:
+    js/scripts.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+bootstrap-scripts:
+  js:
+    assets/javascripts/bootstrap/affix.js: {}
+    assets/javascripts/bootstrap/alert.js: {}
+    assets/javascripts/bootstrap/button.js: {}
+    assets/javascripts/bootstrap/carousel.js: {}
+    assets/javascripts/bootstrap/collapse.js: {}
+    assets/javascripts/bootstrap/dropdown.js: {}
+    assets/javascripts/bootstrap/modal.js: {}
+    assets/javascripts/bootstrap/tooltip.js: {}
+    assets/javascripts/bootstrap/popover.js: {}
+    assets/javascripts/bootstrap/scrollspy.js: {}
+    assets/javascripts/bootstrap/tab.js: {}
+    assets/javascripts/bootstrap/transition.js: {}
+    assets/javascripts/ftlabs-fastclick-536219b/lib/fastclick.js: {}
+    //use.fontawesome.com/releases/v5.0.6/js/all.js: { type: external, minified: true }
+
+osu-webfonts:
+  remote: https://www.osu.edu/assets/fonts/webfonts.css
+  version: 1.0
+  license:
+    name: Hoftype
+    url: http://www.fontspring.com/fflicense/hoftype
+  css:
+    theme:
+      https://www.osu.edu/assets/fonts/webfonts.css: { type: external, minified: false }
+
+#font-awesome:
+#  remote: https://fortawesome.github.io/Font-Awesome/
+#  version: 4.5.0
+#  license:
+#    name: MIT
+#    url: https://fortawesome.github.io/Font-Awesome/license/
+#    gpl-compatible: true
+#  css:
+#    theme:
+#      https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css: { type: external, minified: true }

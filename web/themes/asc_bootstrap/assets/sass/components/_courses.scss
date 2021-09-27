@@ -1,0 +1,43 @@
+@import "../helpers/mixins";
+@import "../helpers/variables";
+@import "../helpers/functions";
+//
+// Courses
+// --------------------------------------------------
+
+.page-node-type-course {
+
+  .page-header {
+    display: none;
+  }
+
+  .course-title-wrapper {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .course-cont {
+    padding-left: 0;
+    margin-bottom: 50px;
+
+    .field--name-field-credit-hours {
+      margin: 20px 0;
+    }
+  }
+}
+
+
+// --------------------------------------------------
+
+//## Course taxonomy.
+
+.taxonomy-course-heading {
+  float: left;
+  width: 100%;
+  padding-top: 15px;
+
+  h2 {
+    line-height: 0;
+    font-size: 18px;
+  }
+}

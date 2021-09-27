@@ -1,0 +1,291 @@
+{
+    "name": "osu-asc-webservices/d8-upstream",
+    "description": "OSU ASC Pantheon custom upstream for Drupal 8",
+    "type": "project",
+    "license": "None",
+    "repositories": [{
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "browserstate/history.js",
+                "version": "1.8.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/browserstate/history.js",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/indentblock",
+                "version": "4.8.0",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "indentblock"
+                },
+                "dist": {
+                    "url": "https://download.ckeditor.com/indentblock/releases/indentblock_4.8.0.zip",
+                    "type": "zip"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "desandro/imagesloaded",
+                "version": "4.1.4",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/desandro/imagesloaded",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "desandro/masonry",
+                "version": "4.2.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/desandro/masonry/archive/v4.2.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "gdsmith/jquery.easing",
+                "version": "1.4.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/gdsmith/jquery.easing",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "browserstate/history.js": "1.8",
+        "ckeditor/indentblock": "4.8.0",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.7",
+        "desandro/imagesloaded": "4.1.4",
+        "desandro/masonry": "4.2",
+        "dimsemenov/magnific-popup": "1.1",
+        "drupal/addtocalendar": "3.2",
+        "drupal/admin_toolbar": "2.4",
+        "drupal/administerusersbyrole": "3.0",
+        "drupal/allowed_formats": "1.3",
+        "drupal/anchor_link": "1.7",
+        "drupal/better_exposed_filters": "5.0-beta1",
+        "drupal/block_field": "1.0.0-rc1",
+        "drupal/block_permissions": "1.2",
+        "drupal/block_region_permissions": "1.4",
+        "drupal/bootstrap": "^3.23",
+        "drupal/cache_control_override": "^1.0@alpha",
+        "drupal/ckeditor_indentblock": "1.0.0-beta2",
+        "drupal/config_direct_save": "2.1",
+        "drupal/config_ignore": "2.3",
+        "drupal/config_update": "1.7",
+        "drupal/console": "1.9.7",
+        "drupal/content_access": "1.0-alpha3",
+        "drupal/core-composer-scaffold": "^9.0",
+        "drupal/core-recommended": "8.9.16",
+        "drupal/crop": "2.1",
+        "drupal/ctools": "3.7",
+        "drupal/dropzonejs": "2.5",
+        "drupal/editor_advanced_link": "1.8",
+        "drupal/embed": "1.4",
+        "drupal/entity": "1.2",
+        "drupal/entity_browser": "2.6",
+        "drupal/entity_clone": "1.0.0-beta5",
+        "drupal/entity_embed": "1.1",
+        "drupal/entity_reference_revisions": "1.9",
+        "drupal/externalauth": "1.3",
+        "drupal/field_group": "3.1",
+        "drupal/field_permissions": "1.1",
+        "drupal/file_browser": "1.3",
+        "drupal/focal_point": "1.5",
+        "drupal/google_analytics": "2.5",
+        "drupal/google_tag": "1.4",
+        "drupal/honeypot": "2.0.1",
+        "drupal/inline_entity_form": "1.0-rc9",
+        "drupal/libraries": "3.0-beta1",
+        "drupal/link_attributes": "1.11",
+        "drupal/linkit": "5.0-beta12",
+        "drupal/mathjax": "3.0.0-beta1",
+        "drupal/media_entity_browser": "2.0-alpha3",
+        "drupal/media_entity_twitter": "2.7",
+        "drupal/menu_block": "1.7",
+        "drupal/menu_block_title": "1.2",
+        "drupal/menu_breadcrumb": "1.16",
+        "drupal/metatag": "1.16",
+        "drupal/migrate_devel": "2.0-alpha2",
+        "drupal/migrate_plus": "5.1",
+        "drupal/migrate_tools": "5.0",
+        "drupal/mobile_detect": "^2.5",
+        "drupal/mobile_detect_twig_extensions": "1.5",
+        "drupal/module_filter": "3.2",
+        "drupal/multiple_fields_remove_button": "^1.0@alpha",
+        "drupal/pantheon_advanced_page_cache": "1.2",
+        "drupal/paragraphs": "1.12",
+        "drupal/pathauto": "1.8",
+        "drupal/rebuild_cache_access": "1.7",
+        "drupal/recaptcha": "3.0",
+        "drupal/recaptcha_v3": "^1.4",
+        "drupal/redirect": "1.6",
+        "drupal/roleassign": "1.0.0-beta1",
+        "drupal/scheduler": "1.3",
+        "drupal/search_api": "1.19",
+        "drupal/search_api_db": "1.19",
+        "drupal/simple_gmap": "3.0",
+        "drupal/simple_instagram_feed": "^3.11",
+        "drupal/simple_sitemap": "3.10",
+        "drupal/smtp": "1.0",
+        "drupal/social_media": "1.9-rc2",
+        "drupal/social_media_links": "^2.8",
+        "drupal/superfish": "1.4",
+        "drupal/svg_image": "1.14",
+        "drupal/token": "1.9",
+        "drupal/twig_tweak": "2.9",
+        "drupal/twitter_block": "3.0-alpha1",
+        "drupal/userprotect": "1.1",
+        "drupal/video_embed_field": "2.4",
+        "drupal/view_unpublished": "1.0",
+        "drupal/views_ajax_history": "1.5",
+        "drupal/views_autocomplete_filters": "1.3",
+        "drupal/views_bootstrap": "3.6",
+        "drupal/views_bulk_operations": "3.13",
+        "drupal/views_fieldsets": "^3.4",
+        "drupal/views_infinite_scroll": "1.8",
+        "drupal/webform": "^6",
+        "drush-ops/behat-drush-endpoint": "0.0.5",
+        "drush/drush": "^10",
+        "enyo/dropzone": "^5",
+        "gdsmith/jquery.easing": "1.4.1",
+        "oomphinc/composer-installers-extender": "2.0",
+        "pantheon-systems/quicksilver-pushback": "1.0.1"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php"
+        ]
+    },
+    "scripts": {
+        "build-assets": [
+            "@prepare-for-pantheon",
+            "composer install --optimize-autoloader --no-dev"
+        ],
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "prepare-for-pantheon": "DrupalProject\\composer\\ScriptHandler::prepareForPantheon",
+        "post-install-cmd": [
+            "@drupal-scaffold",
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-package-install": [
+            "rm -rf web/modules/smtp/.git"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-create-project-cmd": [
+            "@drupal-scaffold",
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library", "enyo/dropzone", "desandro/masonry", "dimsemenov/magnific-popup"],
+            "web/modules/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "build-env": {
+            "install-cms": [
+                "drush site-install standard --account-mail={account-mail} --account-name={account-name} --account-pass={account-pass} --site-mail={site-mail} --site-name={site-name} --yes",
+                "drush pm-enable config_direct_save simple_block --yes",
+                "drush pm-uninstall block_content --yes"
+            ],
+            "export-configuration": "drush config-export --yes"
+        },
+        "drupal-scaffold": {
+            "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8-scaffolding/{version}/{path}",
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/README.txt": false,
+                "[web-root]/example.gitignore": false,
+                "[web-root]/modules/README.txt": false,
+                "[web-root]/profiles/README.txt": false,
+                "[web-root]/sites/README.txt": false,
+                "[web-root]/themes/README.txt": false,
+                "[web-root]/web.config": false
+            }
+        },
+        "patches": {
+            "drupal/core": {
+                "2799049": "patches/role_based_email_access-2799049-d87.patch",
+                "2862291": "https://www.drupal.org/files/issues/2020-12-08/2862291-29.patch",
+                "2949017": "https://www.drupal.org/files/issues/2019-12-12/2949017-59.patch"
+            },
+            "drupal/addtocalendar": {
+                "UTC Time Adjustment": "patches/utc-time-adjustment.patch"
+            },
+            "drupal/entity_clone": {
+                "3060223": "https://www.drupal.org/files/issues/2019-10-17/%20entity_clone-corrupted-paragraph-cloning-3060223-5.patch"
+            },
+            "drupal/honeypot": {
+                "2811189": "https://www.drupal.org/files/issues/2019-08-08/honeypot_field_weight_2811189-18.patch"
+            },
+            "drupal/inline_entity_form": {
+                "3208279": "https://www.drupal.org/files/issues/2021-05-08/inline_entity_form-n3208279-13.patch"
+            },
+            "drupal/linkit": {
+                "2712951": "https://www.drupal.org/files/issues/2021-04-07/linkit-for-link-field-2712951-216.patch"
+            },
+            "drupal/multiple_fields_remove_button": {
+                "Adding Date Range": "patches/multiple_fields_remove_button-daterange-addition.patch"
+            },
+            "drupal/social_media_links": {
+                "Remove Google Plus": "patches/rm-googleplus.patch"
+            },
+            "mehrpadin/superfish": {
+                "Fontawesome Tags": "patches/superfish-fontawesome-tags.patch"
+            },
+            "drupal/views_ajax_history": {
+                "3028400": "https://www.drupal.org/files/issues/2019-05-16/wrong-url-with-infinit-scroll-3028400-1.patch"
+            }
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform": {
+            "php": "7.3"
+        }
+    }
+}

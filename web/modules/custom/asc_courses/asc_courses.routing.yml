@@ -1,0 +1,28 @@
+asc_courses.settings:
+  path: '/admin/config/content/asc-courses'
+  defaults:
+    _form: 'Drupal\asc_courses\Form\SettingsForm'
+    _title: 'ASC Courses Settings' # Used in breadcrumbs
+    link_id: 'asc_courses.settings'
+  requirements:
+    _permission: 'asc courses selections'
+
+asc_courses.search:
+  path: '/admin/config/content/asc-courses/search'
+  defaults:
+    _form: 'Drupal\asc_courses\Form\CourseSearchForm'
+    # _controller: '\Drupal\asc_courses\Controller\DisplayTableController:display'
+    _title: 'Course Search' # Used in breadcrumbs
+    link_id: 'asc_courses.search'
+  requirements:
+    _permission: 'asc courses selections'
+
+asc_courses.api_settings:
+  path: '/admin/config/content/asc-courses/api_settings'
+  defaults:
+    _form: 'Drupal\asc_courses\Form\ApiSettingsForm'
+    _title: 'ASC Courses API' # Used in breadcrumbs
+    link_id: 'asc_courses.api_settings'
+  requirements:
+    _permission: 'asc courses admin'
+

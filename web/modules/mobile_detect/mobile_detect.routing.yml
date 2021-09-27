@@ -1,0 +1,7 @@
+mobile_detect.settings:
+  path: '/admin/config/system/mobile-detect-settings'
+  defaults:
+    _title: 'Mobile detect settings'
+    _form: 'Drupal\mobile_detect\Form\MobileDetectSettingsForm'
+  requirements:
+    _permission: 'administer mobile_detect configuration'
