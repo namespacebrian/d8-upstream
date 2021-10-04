@@ -92,11 +92,19 @@ class RealnameAutocompleteController extends EntityAutocompleteController {
       $uids = $query->execute()->fetchCol();
       $accounts = User::loadMultiple($uids);
 
-      /* @var $account User */
+      /** @var \Drupal\user\Entity\User $account */
       foreach ($accounts as $account) {
         $matches[] = [
-          'value' => $this->t('@realname (@id)', ['@realname' => $account->getDisplayName(), '@id' => $account->id()]),
-          'label' => $this->t('@realname (@username)', ['@realname' => $account->getDisplayName(), '@username' => $account->getAccountName()]),
+          'value' => $this->t('@realname (@id)',
+                  [
+                    '@realname' => $account->getDisplayName(),
+                    '@id' => $account->id(),
+                  ]),
+          'label' => $this->t('@realname (@username)',
+                   [
+                     '@realname' => $account->getDisplayName(),
+                     '@username' => $account->getAccountName(),
+                   ]),
         ];
       }
     }

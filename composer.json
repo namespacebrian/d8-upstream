@@ -144,6 +144,7 @@
         "drupal/pantheon_advanced_page_cache": "1.2",
         "drupal/paragraphs": "1.12",
         "drupal/pathauto": "1.8",
+        "drupal/realname": "^2",
         "drupal/rebuild_cache_access": "1.7",
         "drupal/recaptcha": "3.0",
         "drupal/recaptcha_v3": "^1.4",

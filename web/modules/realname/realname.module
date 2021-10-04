@@ -214,7 +214,10 @@ function realname_update(User $account) {
     \Drupal::moduleHandler()->alter('realname_pattern', $pattern, $account);
 
     // Perform token replacement on the real name pattern.
-    $realname = \Drupal::token()->replace($pattern, ['user' => $account], ['clear' => TRUE, 'sanitize' => FALSE]);
+    $realname = \Drupal::token()->replace($pattern,
+        ['user' => $account],
+        ['clear' => TRUE, 'sanitize' => FALSE]
+    );
 
     // Remove any HTML tags.
     $realname = strip_tags(Html::decodeEntities($realname));
@@ -288,4 +291,3 @@ function realname_delete_all() {
 /**
  * @} End of "addtogroup realname".
  */
-
