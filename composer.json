@@ -199,9 +199,6 @@
             "@drupal-scaffold",
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
-        "post-package-install": [
-            "rm -rf web/modules/smtp/.git"
-        ],
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
