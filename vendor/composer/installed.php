@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5cae0f4066e940e196e8a81c6dfb9e2b65d5c099',
+        'reference' => '6ca9f61713cb6d86796a441804836f1b672f2986',
         'name' => 'osu-asc-webservices/d8-upstream',
         'dev' => true,
     ),
@@ -374,12 +374,12 @@
             ),
         ),
         'drupal/better_exposed_filters' => array(
-            'pretty_version' => '5.0.0-beta1',
-            'version' => '5.0.0.0-beta1',
+            'pretty_version' => '5.0.0-beta3',
+            'version' => '5.0.0.0-beta3',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/better_exposed_filters',
             'aliases' => array(),
-            'reference' => '8.x-5.0-beta1',
+            'reference' => '8.x-5.0-beta3',
             'dev_requirement' => false,
         ),
         'drupal/big_pipe' => array(
@@ -2101,7 +2101,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5cae0f4066e940e196e8a81c6dfb9e2b65d5c099',
+            'reference' => '6ca9f61713cb6d86796a441804836f1b672f2986',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(
