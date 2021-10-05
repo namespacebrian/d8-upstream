@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '775828c014be75a94b4b2640a30993a5e2eb6a40',
+        'reference' => 'cdffd78c1ed8baeb4385e82f047b214aecd34c0f',
         'name' => 'osu-asc-webservices/d8-upstream',
         'dev' => true,
     ),
@@ -34,7 +34,7 @@
             'type' => 'drupal-library',
             'install_path' => __DIR__ . '/../../web/libraries/history.js',
             'aliases' => array(),
-            'reference' => 'origin/master',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'chi-teck/drupal-code-generator' => array(
@@ -190,7 +190,7 @@
             'type' => 'drupal-library',
             'install_path' => __DIR__ . '/../../web/libraries/imagesloaded',
             'aliases' => array(),
-            'reference' => 'origin/master',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'desandro/masonry' => array(
@@ -308,12 +308,12 @@
             'dev_requirement' => false,
         ),
         'drupal/admin_toolbar' => array(
-            'pretty_version' => '2.4.0',
-            'version' => '2.4.0.0',
+            'pretty_version' => '2.5.0',
+            'version' => '2.5.0.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/admin_toolbar',
             'aliases' => array(),
-            'reference' => '8.x-2.4',
+            'reference' => '8.x-2.5',
             'dev_requirement' => false,
         ),
         'drupal/administerusersbyrole' => array(
@@ -1924,7 +1924,7 @@
             'type' => 'drupal-library',
             'install_path' => __DIR__ . '/../../web/libraries/jquery.easing',
             'aliases' => array(),
-            'reference' => 'origin/master',
+            'reference' => NULL,
             'dev_requirement' => false,
         ),
         'google/recaptcha' => array(
@@ -2101,7 +2101,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '775828c014be75a94b4b2640a30993a5e2eb6a40',
+            'reference' => 'cdffd78c1ed8baeb4385e82f047b214aecd34c0f',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(

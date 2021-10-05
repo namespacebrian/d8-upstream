@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f954eea562add7cb08ac2eeed2b50dc6",
+    "content-hash": "f7e4d6fcb114d50db7284ffd4d45f1be",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -133,10 +133,9 @@
         {
             "name": "browserstate/history.js",
             "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/browserstate/history.js",
-                "reference": "origin/master"
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/browserstate/history.js/archive/refs/tags/1.8.0.zip"
             },
             "type": "drupal-library"
         },
@@ -1289,10 +1288,9 @@
         {
             "name": "desandro/imagesloaded",
             "version": "4.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/desandro/imagesloaded",
-                "reference": "origin/master"
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/desandro/imagesloaded/archive/refs/tags/v4.1.4.zip"
             },
             "type": "drupal-library"
         },
@@ -2006,17 +2004,17 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/admin_toolbar.git",
-                "reference": "8.x-2.4"
+                "reference": "8.x-2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-2.4.zip",
-                "reference": "8.x-2.4",
-                "shasum": "6240047b8d91ac78f98d861ba8282af971fa0b38"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-2.5.zip",
+                "reference": "8.x-2.5",
+                "shasum": "c71e58051b8d6818272df96d14cb11407d5e5ceb"
             },
             "require": {
                 "drupal/core": "^8.8.0 || ^9.0"
@@ -2024,8 +2022,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.4",
-                    "datestamp": "1601999178",
+                    "version": "8.x-2.5",
+                    "datestamp": "1629907119",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8634,10 +8632,9 @@
         {
             "name": "gdsmith/jquery.easing",
             "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gdsmith/jquery.easing",
-                "reference": "origin/master"
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/gdsmith/jquery.easing/archive/refs/tags/1.4.1.zip"
             },
             "type": "drupal-library"
         },
