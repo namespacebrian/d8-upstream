@@ -275,9 +275,9 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
    *   along with the default configuration values.
    */
   public function getEmailConfiguration() {
-    $configuration = $this->getConfiguration();
+    $settings = $this->getSettings();
     $email = [];
-    foreach ($configuration['settings'] as $key => $value) {
+    foreach ($settings as $key => $value) {
       $email[$key] = ($value === static::DEFAULT_VALUE) ? $this->getDefaultConfigurationValue($key) : $value;
     }
     return $email;
@@ -1253,7 +1253,6 @@ class EmailWebformHandler extends WebformHandlerBase implements WebformHandlerMe
     $element['reply_to'] = [
       '#type' => 'email',
       '#title' => $this->t('Reply to'),
-      '#required' => TRUE,
       '#default_value' => $message['reply_to'],
     ];
     $element['message_divider'] = ['#markup' => '<hr/>'];

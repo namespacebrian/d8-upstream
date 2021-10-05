@@ -4371,6 +4371,7 @@ webform_section:
   title_attributes: {  }
   title_display: ''
   title_tag: h2
+  description_display: ''
 webform_select_other:
   access: true
   access_create_permissions: {  }

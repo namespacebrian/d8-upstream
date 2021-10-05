@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'e18b0eeea68107161764002e4a2af69d9f4da854',
+        'reference' => '5cae0f4066e940e196e8a81c6dfb9e2b65d5c099',
         'name' => 'osu-asc-webservices/d8-upstream',
         'dev' => true,
     ),
@@ -1844,12 +1844,12 @@
             ),
         ),
         'drupal/webform' => array(
-            'pretty_version' => '6.0.3',
-            'version' => '6.0.3.0',
+            'pretty_version' => '6.0.5',
+            'version' => '6.0.5.0',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/webform',
             'aliases' => array(),
-            'reference' => '6.0.3',
+            'reference' => '6.0.5',
             'dev_requirement' => false,
         ),
         'drupal/workflows' => array(
@@ -2101,7 +2101,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'e18b0eeea68107161764002e4a2af69d9f4da854',
+            'reference' => '5cae0f4066e940e196e8a81c6dfb9e2b65d5c099',
             'dev_requirement' => false,
         ),
         'pantheon-systems/quicksilver-pushback' => array(

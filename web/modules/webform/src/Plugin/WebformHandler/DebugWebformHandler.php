@@ -69,8 +69,7 @@ class DebugWebformHandler extends WebformHandlerBase {
    * {@inheritdoc}
    */
   public function getSummary() {
-    $configuration = $this->getConfiguration();
-    $settings = $configuration['settings'];
+    $settings = $this->getSettings();
     switch ($settings['format']) {
       case static::FORMAT_JSON:
         $settings['format'] = $this->t('JSON');
@@ -125,8 +124,7 @@ class DebugWebformHandler extends WebformHandlerBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state, WebformSubmissionInterface $webform_submission) {
-    $configuration = $this->getConfiguration();
-    $settings = $configuration['settings'];
+    $settings = $this->getSettings();
 
     $data = ($settings['submission'])
       ? $webform_submission->toArray(TRUE)

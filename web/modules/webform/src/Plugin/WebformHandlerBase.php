@@ -26,6 +26,7 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
 
   use WebformEntityInjectionTrait;
   use WebformEntityStorageTrait;
+  use WebformPluginSettingsTrait;
 
   /**
    * The webform.

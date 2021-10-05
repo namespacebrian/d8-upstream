@@ -8,7 +8,7 @@ dependencies:
   - 'webform:webform_options_limit'
   - 'webform:webform_options_custom'
 
-# Information added by Drupal.org packaging script on 2021-05-05
-version: '6.0.3'
+# Information added by Drupal.org packaging script on 2021-08-25
+version: '6.0.5'
 project: 'webform'
-datestamp: 1620250261
+datestamp: 1629903950

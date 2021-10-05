@@ -166,7 +166,7 @@ thead th .dropbutton {
   white-space: nowrap;
 }
 
-.webform-ui-element-type-table tr td:first-child .tippy-tooltip /** Allow tippy tooltip to wrap */ {
+.webform-ui-element-type-table tr td:first-child .tippy-content /** Allow tippy tooltip to wrap */ {
   white-space: normal;
 }
 

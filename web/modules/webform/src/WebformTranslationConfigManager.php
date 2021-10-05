@@ -265,14 +265,14 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
    * {@inheritdoc}
    */
   public static function validateWebformForm(&$form, FormStateInterface $form_state) {
-    if ($form_state::hasAnyErrors()) {
+    $source_elements = $form_state->get('webform_source_elements');
+    if ($form_state::hasAnyErrors() || empty($source_elements)) {
       return;
     }
 
     $values = $form_state->getValues();
 
     $config_name = $form_state->get('webform_config_name');
-    $source_elements = $form_state->get('webform_source_elements');
 
     $translation_elements = $values['translation']['config_names'][$config_name]['elements'];
     foreach ($translation_elements as $key => $element) {
@@ -319,9 +319,13 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
    *   The current state of the form.
    */
   protected function alterConfigWebformFormHandlers($config_name, &$config_element, &$form, $form_state) {
-    $webform = $this->loadWebform($config_name);
-
     $handlers =& $config_element['handlers'];
+    // Verify if the webform has any handler.
+    if(!isset($handlers)){
+      return;
+    }
+
+    $webform = $this->loadWebform($config_name);
     foreach (Element::children($handlers) as $handler_id) {
       $handler = $webform->getHandler($handler_id);
       if (!$handler) {
@@ -331,16 +335,18 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
       // Apply custom logic to email body which can be twig, html, or text.
       if ($handler instanceof EmailWebformHandler) {
         $body_element =& NestedArray::getValue($config_element, ['handlers', $handler_id, 'settings', 'body']);
-        $configuration = $handler->getConfiguration();
-        if (!empty($configuration['settings']['twig'])) {
-          $this->alterTextareaElement($body_element, 'twig');
-          $body_element['translation']['#access'] = WebformTwigExtension::hasEditTwigAccess();
-        }
-        elseif (!empty($configuration['settings']['html'])) {
-          $this->alterHtmlEditorElement($body_element);
-        }
-        else {
-          $this->alterTextareaElement($body_element, 'text');
+        if ($body_element) {
+          $configuration = $handler->getConfiguration();
+          if (!empty($configuration['settings']['twig'])) {
+            $this->alterTextareaElement($body_element, 'twig');
+            $body_element['translation']['#access'] = WebformTwigExtension::hasEditTwigAccess();
+          }
+          elseif (!empty($configuration['settings']['html'])) {
+            $this->alterHtmlEditorElement($body_element);
+          }
+          else {
+            $this->alterTextareaElement($body_element, 'text');
+          }
         }
       }
     }
@@ -1024,7 +1030,7 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
       if ($translation_element === $source_element) {
         unset($translation_elements[$key]);
       }
-      elseif (is_array($translation_element)) {
+      elseif (is_array($translation_element) && is_array($source_element)) {
         $this->mergeTranslationAndSourceElementsProperties($translation_element, $source_element);
         if (empty($translation_element)) {
           unset($translation_elements[$key]);

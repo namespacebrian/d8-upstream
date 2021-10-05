@@ -16,6 +16,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\webform\Cache\WebformBubbleableMetadata;
 use Drupal\webform\Entity\WebformSubmission;
 use Drupal\webform\Form\WebformDialogFormTrait;
 use Drupal\webform\Plugin\WebformElement\Hidden;
@@ -183,6 +184,15 @@ class WebformSubmissionForm extends ContentEntityForm {
   protected $originalData;
 
   /**
+   * Bubbleable metadata.
+   *
+   * @var \Drupal\webform\Cache\WebformBubbleableMetadata
+   *
+   * @see \Drupal\webform\WebformSubmissionForm::buildForm
+   */
+  protected $bubbleableMetadata;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -261,6 +271,10 @@ class WebformSubmissionForm extends ContentEntityForm {
    * @see \Drupal\Core\Entity\EntityFormBuilder::getForm
    */
   public function setEntity(EntityInterface $entity) {
+    // Create new metadata to be applie when the form is built.
+    // @see \Drupal\webform\WebformSubmissionForm::buildForm
+    $this->bubbleableMetadata = new WebformBubbleableMetadata();
+
     /** @var \Drupal\webform\WebformSubmissionInterface $entity */
     $webform = $entity->getWebform();
 
@@ -306,7 +320,7 @@ class WebformSubmissionForm extends ContentEntityForm {
     // Handle paragraph source entity.
     if ($source_entity && $source_entity->getEntityTypeId() === 'paragraph') {
       // Disable :clear suffix to prevent webform tokens from being removed.
-      $data = $this->tokenManager->replace($data, $source_entity, [], ['suffixes' => ['clear' => FALSE]]);
+      $data = $this->tokenManager->replace($data, $source_entity, [], ['suffixes' => ['clear' => FALSE]], $this->bubbleableMetadata);
       $source_entity = WebformSourceEntityManager::getMainSourceEntity($source_entity);
     }
     // Set source entity.
@@ -408,7 +422,7 @@ class WebformSubmissionForm extends ContentEntityForm {
     // This allows computed elements to be executed and tokens
     // to be replaced using the webform's default data.
     $default_data = $webform->getElementsDefaultData();
-    $default_data = $this->tokenManager->replaceNoRenderContext($default_data, $entity);
+    $default_data = $this->tokenManager->replace($default_data, $entity, [], [], $this->bubbleableMetadata);
     $data += $default_data;
 
     // Set data and calculate computed values.
@@ -593,8 +607,13 @@ class WebformSubmissionForm extends ContentEntityForm {
     // Server side #states API validation.
     $this->conditionsValidator->buildForm($form, $form_state);
 
+    // Append the bubbleable metadat to the form's render array.
+    // @see \Drupal\webform\WebformSubmissionForm::setEntity
+    $this->bubbleableMetadata->appendTo($form);
+
     return $form;
   }
+
 
   /**
    * {@inheritdoc}
@@ -2031,7 +2050,7 @@ class WebformSubmissionForm extends ContentEntityForm {
   protected function setFormPropertiesFromElements(array &$form, array &$elements) {
     foreach ($elements as $key => $value) {
       if (is_string($key) && $key[0] === '#') {
-        $value = $this->tokenManager->replace($value, $this->getEntity());
+        $value = $this->tokenManager->replace($value, $this->getEntity(), [], [], $this->bubbleableMetadata);
         if (isset($form[$key]) && is_array($form[$key]) && is_array($value)) {
           $form[$key] = NestedArray::mergeDeep($form[$key], $value);
         }
@@ -2043,7 +2062,7 @@ class WebformSubmissionForm extends ContentEntityForm {
     }
     // Replace token in #attributes.
     if (isset($form['#attributes'])) {
-      $form['#attributes'] = $this->tokenManager->replace($form['#attributes'], $this->getEntity());
+      $form['#attributes'] = $this->tokenManager->replace($form['#attributes'], $this->getEntity(), [], [], $this->bubbleableMetadata);
     }
   }
 
@@ -2301,7 +2320,7 @@ class WebformSubmissionForm extends ContentEntityForm {
     switch ($confirmation_type) {
       case WebformInterface::CONFIRMATION_PAGE:
         $redirect_url = $this->requestHandler->getUrl($webform, $this->sourceEntity, 'webform.confirmation', $route_options);
-        $form_state->setRedirectUrl($redirect_url);
+        $this->setTrustedRedirectUrl($form_state, $redirect_url);
         return;
 
       case WebformInterface::CONFIRMATION_URL:
@@ -2980,7 +2999,7 @@ class WebformSubmissionForm extends ContentEntityForm {
       ?: NULL;
 
     if ($value !== NULL) {
-      return $this->tokenManager->replace($value, $this->getEntity());
+      return $this->tokenManager->replace($value, $this->getEntity(), [], [], $this->bubbleableMetadata);
     }
     else {
       return $default_value;
